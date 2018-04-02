@@ -205,18 +205,132 @@ namespace Proyecto1LFP.Modelos
                         break;
 
                     case 5:
+
+                        columna++;
+
+                        // >
+                        if(caracter[indice] == 62)
+                        {
+                            numCaracter++;                            
+                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
+
+                            // ;
+                        }
+                        else if(caracter[indice] == 59)
+                        {
+                            numCaracter++;                            
+                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
+
+                        }else if (Char.IsLetter(caracter[indice]))
+                        {
+                            estado = 6;
+                            numCaracter++;
+                            lexema += caracter[indice];
+                            // "
+                        }
+                        else if(caracter[indice] == 34)
+                        {
+                            estado = 12;
+                        }
+
                         break;
 
                     case 6:
+
+                        columna++;
+
+                        if (Char.IsLetter(caracter[indice]))
+                        {
+                            numCaracter++;
+                            lexema += caracter[indice];
+
+
+                        }
+                        else if (Char.IsDigit(caracter[indice]))
+                        {
+                            numCaracter++;
+                            lexema += caracter[indice];
+
+                            // _
+                        }
+                        else if(caracter[indice] == 95)
+                        {
+                            numCaracter++;
+                            lexema += caracter[indice];
+
+
+                            // coma
+                        }else if(caracter[indice] == 44)
+                        {
+                            numCaracter++;
+                            listaTokens.Add(new Token(numCaracter, "Tk_Coma", caracter[indice].ToString(), fila, columna));
+                            llenarListaTokens(numCaracter - 1, lexema, fila, columna);                          
+                            estado = 6;
+                            lexema = "";
+
+                            // punto
+                        }else if(caracter[indice] == 46)
+                        {
+                            numCaracter++;
+                            listaTokens.Add(new Token(numCaracter, "Tk_Punto", caracter[indice].ToString(), fila, columna));
+
+
+                            listaTokens.Add(new Token(numCaracter, "Tk_IdentificadorOrigen", lexema, fila, columna));
+                            //llenarListaTokens(numCaracter - 1, lexema, fila, columna);                            
+                            lexema = "";
+
+                            estado = 7;
+                        }
+
                         break;
 
                     case 7:
+
+                        if (Char.IsLetter(caracter[indice]))
+                        {
+                            columna++;
+                            lexema += caracter[indice];
+                            estado = 8;
+                        }
                         break;
 
                     case 8:
+
+                        columna++;
+
+                        if (Char.IsLetter(caracter[indice]))
+                        {
+                            lexema += caracter[indice];
+                            estado = 7;
+
+                            //Guion
+                        }else if(caracter[indice] == 45)
+                        {
+                                                        
+                            llenarListaTokens(numCaracter - 1, lexema, fila, columna);                            
+                            lexema = "";
+
+                            lexema += caracter[indice];
+
+                            estado = 7;
+                        }
+
                         break;
 
                     case 9:
+
+                        columna++;
+                        
+                        // >
+                        if(caracter[indice] == 62)
+                        {
+                            lexema += caracter[indice];
+                            llenarListaTokens(numCaracter - 1, lexema, fila, columna);
+                            lexema = "";
+                            estado = 10;
+                        }
+
+                        
                         break;
 
                     case 10:
