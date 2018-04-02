@@ -24,7 +24,7 @@ namespace Proyecto1LFP
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            txtBoxAnalalizador.Text = "";
+            txtBoxAnalalizador.Text = "";            
         }
 
         private void analizarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -39,7 +39,23 @@ namespace Proyecto1LFP
             if(cadena.Length > 0)
             {
                 analizador.analizarEntrada(cadena);
+                listaTokens.Clear();
+            }
+            else
+            {
+                listaTokens.Clear();
+                analizador.analizarEntrada(cadena);
             }            
+        }
+
+        private void btnAnalizar_Click(object sender, EventArgs e)
+        {
+            enviarAAnalizador();
+        }
+
+        private void btnShow_Click(object sender, EventArgs e)
+        {
+            analizador.mostrarExpresiones();
         }
     }
 }

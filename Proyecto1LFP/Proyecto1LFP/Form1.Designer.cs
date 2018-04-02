@@ -43,6 +43,7 @@
             this.txtBoxLog = new System.Windows.Forms.TextBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnAnalizar = new System.Windows.Forms.Button();
+            this.btnShow = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -164,12 +165,24 @@
             this.btnAnalizar.TabIndex = 4;
             this.btnAnalizar.Text = "A";
             this.btnAnalizar.UseVisualStyleBackColor = true;
+            this.btnAnalizar.Click += new System.EventHandler(this.btnAnalizar_Click);
+            // 
+            // btnShow
+            // 
+            this.btnShow.Location = new System.Drawing.Point(511, 174);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(23, 67);
+            this.btnShow.TabIndex = 5;
+            this.btnShow.Text = "S";
+            this.btnShow.UseVisualStyleBackColor = true;
+            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(547, 359);
+            this.Controls.Add(this.btnShow);
             this.Controls.Add(this.btnAnalizar);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.txtBoxLog);
@@ -202,6 +215,7 @@
         private System.Windows.Forms.TextBox txtBoxLog;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnAnalizar;
+        private System.Windows.Forms.Button btnShow;
     }
 }
 

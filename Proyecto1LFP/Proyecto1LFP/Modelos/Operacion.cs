@@ -14,13 +14,11 @@ namespace Proyecto1LFP.Modelos
         private int precedencia;
         private String operacion;
         private String simbolo;
-        
-
+               
 
         public int operarExpresion()
         {
-            int resultado = 0;
-
+            int resultado = 0;            
             return resultado;
         }
 

@@ -17,7 +17,7 @@ namespace Proyecto1LFP.Modelos
         private String codigoGraphviz;
         private String descripcion;
 
-        private Token(int id, String token, String lexema, int fila, int columna, String codigoGraphviz)
+        public Token(int id, String token, String lexema, int fila, int columna, String codigoGraphviz)
         {
             this.id = id;
             this.token = token;
@@ -27,7 +27,7 @@ namespace Proyecto1LFP.Modelos
             this.codigoGraphviz = codigoGraphviz;
         }
 
-        private Token(int id, String lexema, String descripcion, int fila, int columna)
+        public Token(int id, String lexema, String descripcion, int fila, int columna)
         {
             this.id = id;            
             this.lexema = lexema;
