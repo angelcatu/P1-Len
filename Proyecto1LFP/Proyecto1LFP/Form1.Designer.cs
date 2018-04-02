@@ -1,4 +1,4 @@
-﻿namespace Practica1LFP
+﻿namespace Proyecto1LFP
 {
     partial class Form1
     {

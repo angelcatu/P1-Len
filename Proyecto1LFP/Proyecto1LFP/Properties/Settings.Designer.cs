@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Practica1LFP.Properties
+namespace Proyecto1LFP.Properties
 {
 
 

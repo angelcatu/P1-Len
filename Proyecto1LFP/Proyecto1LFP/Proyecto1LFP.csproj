@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5746C80A-6B8A-4781-906B-D3BFA9874EFC}</ProjectGuid>
+    <ProjectGuid>{E1164609-5540-4B05-BBB4-877637D0AEB1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Practica1LFP</RootNamespace>
-    <AssemblyName>Practica1LFP</AssemblyName>
+    <RootNamespace>Proyecto1LFP</RootNamespace>
+    <AssemblyName>Proyecto1LFP</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
