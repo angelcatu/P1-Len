@@ -92,7 +92,7 @@ namespace Proyecto1LFP.Modelos
                         {
                             estado = 2;
                             expresion += caracter[indice];
-                            
+
 
                             // {}
                         } else if (caracter[indice] == 123 || caracter[indice] == 125)
@@ -105,7 +105,7 @@ namespace Proyecto1LFP.Modelos
                         {
                             numCaracter++;
                             expresion += caracter[indice];
-                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);                            
+                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
 
                             // ;
                         } else if (caracter[indice] == 59)
@@ -113,7 +113,13 @@ namespace Proyecto1LFP.Modelos
                             numCaracter++;
                             llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
                             llenarListaExpresiones(expresion);
-                            expresion = ""; 
+
+                            if (lexema.Length > 0)
+                            {
+                                llenarListaTokens(numCaracter - 1, lexema, fila, columna);
+                                lexema = "";
+                            }
+                            expresion = "";
 
                             // * + - /
                         } else if (caracter[indice] == 42 || caracter[indice] == 43 || caracter[indice] == 45 || caracter[indice] == 47)
@@ -121,7 +127,7 @@ namespace Proyecto1LFP.Modelos
                             numCaracter++;
                             expresion += caracter[indice];
                             llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
-                            
+
 
                             estado = 3;
 
@@ -143,13 +149,13 @@ namespace Proyecto1LFP.Modelos
                         {
                             numCaracter++;
                             expresion += caracter[indice];
-                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);                            
+                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
 
                         } else if (caracter[indice] == 42 || caracter[indice] == 43 || caracter[indice] == 45 || caracter[indice] == 47) {
 
                             numCaracter++;
                             expresion += caracter[indice];
-                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);                            
+                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
                             estado = 3;
                         }
 
@@ -163,14 +169,14 @@ namespace Proyecto1LFP.Modelos
                         {
                             numCaracter++;
                             expresion += caracter[indice];
-                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);                            
+                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
                             estado = 4;
 
                         } else if (caracter[indice] == 40)
                         {
                             numCaracter++;
                             expresion += caracter[indice];
-                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);                            
+                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
                             estado = 1;
                         }
 
@@ -185,17 +191,17 @@ namespace Proyecto1LFP.Modelos
                         {
                             numCaracter++;
                             expresion += caracter[indice];
-                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);                            
+                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
 
                         } else if (caracter[indice] == 42 || caracter[indice] == 43 || caracter[indice] == 45 || caracter[indice] == 47)
                         {
                             numCaracter++;
                             expresion += caracter[indice];
-                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);                            
+                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
 
                             estado = 3;
 
-                        }else if(caracter[indice] == 41 || caracter[indice] == 125)
+                        } else if (caracter[indice] == 41 || caracter[indice] == 125)
                         {
                             estado = 1;
                             indice--;
@@ -209,26 +215,28 @@ namespace Proyecto1LFP.Modelos
                         columna++;
 
                         // >
-                        if(caracter[indice] == 62)
+                        if (caracter[indice] == 62)
                         {
-                            numCaracter++;                            
+                            numCaracter++;
                             llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
 
                             // ;
                         }
-                        else if(caracter[indice] == 59)
+                        else if (caracter[indice] == 59)
                         {
-                            numCaracter++;                            
+                            numCaracter++;
                             llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
 
-                        }else if (Char.IsLetter(caracter[indice]))
+                        } else if (Char.IsLetter(caracter[indice]))
                         {
                             estado = 6;
                             numCaracter++;
                             lexema += caracter[indice];
+
+
                             // "
                         }
-                        else if(caracter[indice] == 34)
+                        else if (caracter[indice] == 34)
                         {
                             estado = 12;
                         }
@@ -253,23 +261,23 @@ namespace Proyecto1LFP.Modelos
 
                             // _
                         }
-                        else if(caracter[indice] == 95)
+                        else if (caracter[indice] == 95)
                         {
                             numCaracter++;
                             lexema += caracter[indice];
 
 
                             // coma
-                        }else if(caracter[indice] == 44)
+                        } else if (caracter[indice] == 44)
                         {
                             numCaracter++;
                             listaTokens.Add(new Token(numCaracter, "Tk_Coma", caracter[indice].ToString(), fila, columna));
-                            llenarListaTokens(numCaracter - 1, lexema, fila, columna);                          
+                            llenarListaTokens(numCaracter - 1, lexema, fila, columna);
                             estado = 6;
                             lexema = "";
 
                             // punto
-                        }else if(caracter[indice] == 46)
+                        } else if (caracter[indice] == 46)
                         {
                             numCaracter++;
                             listaTokens.Add(new Token(numCaracter, "Tk_Punto", caracter[indice].ToString(), fila, columna));
@@ -304,10 +312,10 @@ namespace Proyecto1LFP.Modelos
                             estado = 7;
 
                             //Guion
-                        }else if(caracter[indice] == 45)
+                        } else if (caracter[indice] == 45)
                         {
-                                                        
-                            llenarListaTokens(numCaracter - 1, lexema, fila, columna);                            
+
+                            llenarListaTokens(numCaracter - 1, lexema, fila, columna);
                             lexema = "";
 
                             lexema += caracter[indice];
@@ -320,36 +328,99 @@ namespace Proyecto1LFP.Modelos
                     case 9:
 
                         columna++;
-                        
+
                         // >
-                        if(caracter[indice] == 62)
+                        if (caracter[indice] == 62)
                         {
                             lexema += caracter[indice];
                             llenarListaTokens(numCaracter - 1, lexema, fila, columna);
                             lexema = "";
                             estado = 10;
+
                         }
 
-                        
+
                         break;
 
                     case 10:
+
+                        columna++;
+
+                        if (Char.IsLetter(caracter[indice]))
+                        {
+                            lexema += caracter[indice];
+
+                        }
+                        else if (Char.IsDigit(caracter[indice]))
+                        {
+                            lexema += caracter[indice];
+
+                        } else if (cadena[indice] == 95)
+                        {
+                            lexema += caracter;
+
+                            // ;
+                        } else if (cadena[indice] == 59)
+                        {
+                            estado = 1;
+                            indice--;
+                        }
+
                         break;
 
                     case 11:
+
+                        columna++;
+
+                        if (Char.IsDigit(caracter[indice]))
+                        {
+                            lexema += caracter[indice];
+                            estado = 12;
+
+                        } else if (caracter[indice] == 42 || caracter[indice] == 43 || caracter[indice] == 45 || caracter[indice] == 47)
+                        {
+                            lexema += caracter[indice];
+                            estado = 13;
+                        }
                         break;
 
                     case 12:
+
+                        columna++;
+
+                        if (Char.IsDigit(caracter[indice]))
+                        {
+                            lexema += caracter[indice];
+                            
+
+                            // "
+                        }else if(caracter[indice] == 34)
+                        {
+                            estado = 14;
+                        }
+
                         break;
 
                     case 13:
+
+                        columna++;
+
+                        //          "
+                        if(caracter[indice] == 34)
+                        {
+                            estado = 14;
+                        }
+
                         break;
 
                     case 14:
-                        break;
 
-                    case 15:
-                        break;
+                        numCaracter++;
+                        listaTokens.Add(new Token(numCaracter, "Tk_Etiqueta", lexema, fila, columna, ""));
+                        lexema = "";
+                        indice--;
+                        estado = 5;
+                        break;                    
 
                     case -1:
                         break;
