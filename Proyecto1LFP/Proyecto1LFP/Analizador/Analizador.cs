@@ -999,7 +999,10 @@ namespace Proyecto1LFP.Modelos
 
                 case ";":
 
-                    if (listaTokens[numCaracter - 1].Equals("}"))
+                    int tamaño = listaTokens.Count();
+                    
+
+                    if (listaTokens[tamaño-1].getLexema().Equals("}"))
                     {
                         listaTokens.Add(new Token(numCaracter, "Tk_PuntoYComa", lexema, fila, columna, ""));
                     }
@@ -1007,7 +1010,7 @@ namespace Proyecto1LFP.Modelos
                     {
                         listaTokens.Add(new Token(numCaracter, "Tk_PuntoYComa", lexema, fila, columna, ";"));
                     }
-                    
+
                     break;                
 
         

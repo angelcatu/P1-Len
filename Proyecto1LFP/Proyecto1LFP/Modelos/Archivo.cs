@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,11 @@ namespace Proyecto1LFP.Modelos
         private String extension;
         private String ruta;            
 
+
+        public Archivo()
+        {
+
+        }
 
         public Archivo(String nombre, String extension)
         {
@@ -58,7 +64,90 @@ namespace Proyecto1LFP.Modelos
         public void crearReporteArbol()
         {
             generarDOT();
-        }        
+            generarImagen("grafo.dot", ruta);
+            
+        }
+
+        public void generarReporteDeArbolHTMl()
+        {
+            try
+            {
+                File.WriteAllText(@ruta + nombre + "." + extension, reporteArbol());
+                MessageBox.Show("Reporte de de árbol de expresiones");
+
+                abrirDocumento(ruta, nombre, extension);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Hubo un problema al generar el html de tokens");
+            }
+        }
+
+        private string reporteArbol()
+        {
+            String contenido = "<html>\n"
+               + "<head>"
+               + "<utf-8>"
+               + "\n<title>REPORTE DE ARBOL</title>\n"
+               + "<style>"
+               + "body{"
+               + "background-color: #ead48a;"
+               + "}"
+               + ""
+               + "table: hover{"
+               + "width: 50%;"
+               + "}"
+               + ""
+               + "th{"
+               + "height: 25px;"
+               + "}"
+               + "</style>"
+               + ""
+               + "</head>"
+               + "<body align='center'>\n"
+               + "<table border = '1' align = 'center'>"
+               + "< img src = "  +ruta+nombre+ ".png> "
+                               
+                    ;
+
+
+
+
+            contenido += "</table>\n</body>\n</html>";
+
+
+
+            return contenido;
+        }
+
+        private void generarImagen(string nombre, string ruta )
+        {
+            try
+            {
+                var command = string.Format("dot -Tpng {0} -o {1}", Path.Combine(ruta, nombre), Path.Combine(ruta, nombre.Replace(".dot", ".png")));
+
+                var procStarInfo = new System.Diagnostics.ProcessStartInfo("cmd", "/C " + command);
+
+                var proc = new System.Diagnostics.Process();
+
+                proc.StartInfo = procStarInfo;
+
+                proc.Start();
+
+                proc.WaitForExit();
+                
+            }catch(Exception e)
+            {
+
+            }
+
+        }
+
+        public Image captarImagen(object sender, PaintEventArgs e)
+        {
+            Image image = Image.FromFile(ruta + nombre + ".png");
+            return image;
+        }
 
         public void createHTML()
         {            
@@ -98,9 +187,9 @@ namespace Proyecto1LFP.Modelos
                 Console.WriteLine("Exception: " + e.Message);
             }
             finally
-            {
+            {                
                 Console.WriteLine("Executing finally block.");
-            }
+            }            
         }
 
         private String reporteSimbolos()

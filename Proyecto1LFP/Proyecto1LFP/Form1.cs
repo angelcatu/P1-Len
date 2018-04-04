@@ -47,10 +47,16 @@ namespace Proyecto1LFP
             archivo.createHTML();            
         }
 
-        private void generarReporteDeArbol()
+        private void generarImagenArbol()
         {
-            Archivo archivo = new Archivo("Reporte de árbol", "html");
+            Archivo archivo = new Archivo();
             archivo.crearReporteArbol();
+        }
+
+        private void generarArbol()
+        {
+            Archivo archivo = new Archivo("ReporteArbol", "html");
+            archivo.generarReporteDeArbolHTMl();
         }
 
         private void enviarAAnalizador()
@@ -82,7 +88,8 @@ namespace Proyecto1LFP
             if (listaErrores.Count == 0)
             {
                 generarReporteDeTokens();
-                generarReporteDeArbol();
+                generarImagenArbol();
+                generarArbol();
                 listaTokens.Clear();
 
             }

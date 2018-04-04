@@ -55,6 +55,7 @@
     <Compile Include="Modelos\Archivo.cs" />
     <Compile Include="Modelos\Expresion.cs" />
     <Compile Include="Modelos\Grafica.cs" />
+    <Compile Include="Modelos\Graphviz.cs" />
     <Compile Include="Modelos\Operacion.cs" />
     <Compile Include="Modelos\Token.cs" />
     <Compile Include="Program.cs" />
