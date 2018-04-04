@@ -89,7 +89,7 @@ namespace Proyecto1LFP
 
             if (listaErrores.Count == 0)
             {
-                generarReporteDeTokens();
+                //generarReporteDeTokens();
                 //generarImagenArbol();
                 //generarArbol();
                                 
