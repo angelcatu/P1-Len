@@ -36,16 +36,31 @@ namespace Proyecto1LFP
         {
             String cadena = txtBoxAnalalizador.Text;
 
+            analizador.setColumna(0);
+            analizador.setFila(1);
+            analizador.setNumCaracter(0);
+            analizador.setNumError(0);
+
             if(cadena.Length > 0)
             {
                 analizador.analizarEntrada(cadena);
+                Archivo archivo = new Archivo("ReporteTokens", "html");
+                archivo.createHTML();
                 listaTokens.Clear();
             }
             else
             {
-                listaTokens.Clear();
-                analizador.analizarEntrada(cadena);
-            }            
+                if(listaTokens != null)
+                {
+                    listaTokens.Clear();
+                    analizador.analizarEntrada(cadena);
+                }
+                else
+                {
+                    analizador.analizarEntrada(cadena);
+                }             
+            }
+            
         }
 
         private void btnAnalizar_Click(object sender, EventArgs e)
@@ -56,6 +71,34 @@ namespace Proyecto1LFP
         private void btnShow_Click(object sender, EventArgs e)
         {
             analizador.mostrarExpresiones();
+        }
+
+        private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrirArchivo();
+        }
+
+        private void abrirArchivo()
+        {
+            txtBoxAnalalizador.Text = "";
+            String texto;
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Abrir archivo";
+            ofd.Filter = "Documentos lf (*.lf)|*.lf";
+
+            try
+            {
+                if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    texto = System.IO.File.ReadAllText(ofd.FileName);
+                    this.txtBoxAnalalizador.Text = texto;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("No se pudo abrir el archivo lf");
+            }
+
         }
     }
 }
