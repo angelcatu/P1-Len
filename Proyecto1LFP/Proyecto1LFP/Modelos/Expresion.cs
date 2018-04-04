@@ -21,16 +21,9 @@ namespace Proyecto1LFP.Modelos
             this.simbolo = simbolo;
         }
 
-        public String concatenarExpresion(List<Expresion> listaExpresiones)
+        public void concatenarExpresion(List<Expresion> listaExpresiones)
         {
-            String expresion = "";
-
-            for (int i = 0; i < listaExpresiones.Count; i++)
-            {
-                expresion += listaExpresiones[i].getSimbolo();
-            }
-
-                return expresion;
+            
         }
 
         public String getSimbolo()

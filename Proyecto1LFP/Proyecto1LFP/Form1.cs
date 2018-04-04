@@ -15,8 +15,10 @@ namespace Proyecto1LFP
     {
 
         private Analizador analizador = new Analizador();
+        private Operacion operacion = new Operacion();
         private List<Token> listaTokens = Analizador.listaTokens;
         private List<Token> listaErrores = Analizador.listaErrores;
+        private List<Expresion> listaExpresiones = Analizador.listaExpresiones;
 
         public Form1()
         {
@@ -50,7 +52,7 @@ namespace Proyecto1LFP
         private void generarImagenArbol()
         {
             Archivo archivo = new Archivo();
-            archivo.crearReporteArbol();
+            archivo.generarImagenDeDot();
         }
 
         private void generarArbol()
@@ -88,8 +90,15 @@ namespace Proyecto1LFP
             if (listaErrores.Count == 0)
             {
                 generarReporteDeTokens();
-                generarImagenArbol();
-                generarArbol();
+                //generarImagenArbol();
+                //generarArbol();
+                                
+                if(listaExpresiones.Count > 0)
+                {
+                    operacion.operarExpresion();
+                }
+
+
                 listaTokens.Clear();
 
             }

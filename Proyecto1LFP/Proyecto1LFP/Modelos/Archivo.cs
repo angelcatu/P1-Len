@@ -26,7 +26,7 @@ namespace Proyecto1LFP.Modelos
 
         public Archivo()
         {
-
+            this.ruta = "C:/Users/ang_e/Documents/";
         }
 
         public Archivo(String nombre, String extension)
@@ -61,10 +61,10 @@ namespace Proyecto1LFP.Modelos
 
         }
      
-        public void crearReporteArbol()
+        public void generarImagenDeDot()
         {
             generarDOT();
-            generarImagen("grafo.dot", ruta);
+            generarImagen("grafo.dot", this.ruta);            
             
         }
 
@@ -85,6 +85,8 @@ namespace Proyecto1LFP.Modelos
 
         private string reporteArbol()
         {
+
+            
             String contenido = "<html>\n"
                + "<head>"
                + "<utf-8>"
@@ -106,17 +108,11 @@ namespace Proyecto1LFP.Modelos
                + "</head>"
                + "<body align='center'>\n"
                + "<table border = '1' align = 'center'>"
-               + "< img src = "  +ruta+nombre+ ".png> "
-                               
-                    ;
-
-
-
-
+               + "< img src = "+ '"' +ruta+"grafo"+ ".png " + '"'+ "> "  
+               
+            ;
+                
             contenido += "</table>\n</body>\n</html>";
-
-
-
             return contenido;
         }
 
