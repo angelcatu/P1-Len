@@ -61,26 +61,21 @@ namespace Proyecto1LFP.Modelos
 
                             //Nueva línea
                         } else if (caracter[indice] == 10)
-                        {
-                            estado = 0;
-                            fila++;
-                            columna = 0;
-
-                            //Retorno del carro
-                        } else if (caracter[indice] == 13)
-                        {
-                            estado = 0;
+                        {                            
                             fila++;
                             columna = 0;
 
                             //Espacio
                         } else if (caracter[indice] == 32)
-                        {
+                        {                            
+                            columna++;
 
-                            estado = 0;
+                            //Regreso de 
+                        }
+                        else if (caracter[indice] == 13)
+                        {
                             columna++;
                         }
-
                         else
                         {
                             //Error
@@ -165,6 +160,38 @@ namespace Proyecto1LFP.Modelos
                             estado = 5;
                         }
 
+                        //Salto
+                        else if (caracter[indice] == 10)
+                        {
+                            
+                            fila++;
+                            columna = 0;                                                                   
+                            //Espacio
+                        }
+                        else if (caracter[indice] == 32)
+                        {
+                            
+                            columna++;
+                        }
+
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Desconocido1", fila, columna);
+                            listaErrores.Add(token);
+                        }
+
 
                         break;
 
@@ -183,6 +210,35 @@ namespace Proyecto1LFP.Modelos
                             expresion += caracter[indice];
                             llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
                             estado = 3;
+                        }
+                        else if (caracter[indice] == 10)
+                        {
+                            estado = 2;
+                            fila++;
+                            columna = 0;                           
+
+                            //Espacio
+                        }
+                        else if (caracter[indice] == 32)
+                        {
+                            estado = 2;
+                            columna++;
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una numero o un operador", fila, columna);
+                            listaErrores.Add(token);
                         }
 
                         break;
@@ -204,6 +260,36 @@ namespace Proyecto1LFP.Modelos
                             expresion += caracter[indice];
                             llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
                             estado = 1;
+                        }
+                        else if (caracter[indice] == 10)
+                        {
+                            estado = 3;
+                            fila++;
+                            columna = 0;
+                           
+                            //Espacio
+                        }
+                        else if (caracter[indice] == 32)
+                        {
+                            estado = 3;
+                            columna++;
+
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una digito o un (", fila, columna);
+                            listaErrores.Add(token);
                         }
 
 
@@ -231,6 +317,37 @@ namespace Proyecto1LFP.Modelos
                         {
                             estado = 1;
                             indice--;
+                        }
+                        else if (caracter[indice] == 10)
+                        {
+                            estado = 4;
+                            fila++;
+                            columna = 0;
+
+                         
+                            //Espacio
+                        }
+                        else if (caracter[indice] == 32)
+                        {
+                            estado = 4;
+                            columna++;
+
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Desconocido", fila, columna);
+                            listaErrores.Add(token);
                         }
 
 
@@ -273,6 +390,36 @@ namespace Proyecto1LFP.Modelos
                             numCaracter++;
                             llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
                             estado = 1;
+                        }
+                        else if (caracter[indice] == 10)
+                        {
+                            estado = 5;
+                            fila++;
+                            columna = 0;
+                           
+                            //Espacio
+                        }
+                        else if (caracter[indice] == 32)
+                        {
+                            estado = 5;
+                            columna++;
+
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Desconocido", fila, columna);
+                            listaErrores.Add(token);
                         }
 
                         break;
@@ -345,8 +492,34 @@ namespace Proyecto1LFP.Modelos
                             lexema = "";
                             estado = 5;
 
-                        } 
+                        }
+                        else if (caracter[indice] == 10)
+                        {
+                            estado = 6;
+                            fila++;
+                            columna = 0;                           
 
+                        }
+                        else if (caracter[indice] == 32)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Desconocido", fila, columna);
+                            listaErrores.Add(token);
+                        }
 
                         break;
 
@@ -357,6 +530,36 @@ namespace Proyecto1LFP.Modelos
                             columna++;
                             lexema += caracter[indice];
                             estado = 8;
+                        }
+                        else if (caracter[indice] == 10)
+                        {
+                            estado = 7;
+                            fila++;
+                            columna = 0;
+
+                            
+                        }
+                        else if (caracter[indice] == 32)
+                        {
+                            estado = 7;
+                            columna++;
+
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una letra", fila, columna);
+                            listaErrores.Add(token);
                         }
                         break;
 
@@ -380,6 +583,37 @@ namespace Proyecto1LFP.Modelos
 
                             estado = 9;
                         }
+                        else if (caracter[indice] == 10)
+                        {
+                            estado = 8;
+                            fila++;
+                            columna = 0;
+
+                            
+                            //Espacio
+                        }
+                        else if (caracter[indice] == 32)
+                        {
+                            estado = 8;
+                            columna++;
+
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una letra o un guión", fila, columna);
+                            listaErrores.Add(token);
+                        }
 
                         break;
 
@@ -395,10 +629,33 @@ namespace Proyecto1LFP.Modelos
                             llenarListaTokens(numCaracter, lexema, fila, columna);
                             lexema = "";
                             estado = 10;
+                        
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            estado = 9;
+                            fila++;
+                            columna = 0;
+
+                            //Espacio
 
                         }
-
-
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una signo >", fila, columna);
+                            listaErrores.Add(token);
+                        }
                         break;
 
                     case 10:
@@ -430,6 +687,36 @@ namespace Proyecto1LFP.Modelos
                             
                             indice--;
                         }
+                        else if (caracter[indice] == 10)
+                        {
+                            estado = 10;
+                            fila++;
+                            columna = 0;
+                            
+                            //Espacio
+                        }
+                        else if (caracter[indice] == 32)
+                        {
+                            estado = 10;
+                            columna++;
+
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una letra o dígito", fila, columna);
+                            listaErrores.Add(token);
+                        }
 
                         break;
 
@@ -452,6 +739,36 @@ namespace Proyecto1LFP.Modelos
 
                             estado = 13;
                         }
+                        else if (caracter[indice] == 10)
+                        {
+                            estado = 11;
+                            fila++;
+                            columna = 0;
+                           
+                            //Espacio
+                        }
+                        else if (caracter[indice] == 32)
+                        {
+                            estado = 11;
+                            columna++;
+
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una operador o un dígito", fila, columna);
+                            listaErrores.Add(token);
+                        }
                         break;
 
                     case 12:
@@ -470,8 +787,32 @@ namespace Proyecto1LFP.Modelos
                         {
                             //listaTokens.Add(new Token(numCaracter, "Tk_Etiqueta", lexema, fila, columna, ""));
                             estado = 14;
-                            
+
                         }
+                        else if (caracter[indice] == 10)
+                        {
+                            estado = 12;
+                            fila++;
+                            columna = 0;                            
+                       
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una dígito", fila, columna);
+                            listaErrores.Add(token);
+                        }
+
 
                         break;
 
@@ -483,6 +824,35 @@ namespace Proyecto1LFP.Modelos
                         if(caracter[indice] == 34)
                         {
                             estado = 14;
+                        }
+                        else if (caracter[indice] == 10)
+                        {
+                            estado = 13;
+                            fila++;
+                            columna = 0;
+                            
+                            //Espacio
+                        }
+                        else if (caracter[indice] == 32)
+                        {
+                            estado = 13;
+                            columna++;
+                        }
+                        else if (caracter[indice] == 13)
+                        {
+                            columna++;
+                        }
+                        else if (caracter[indice] == 09)
+                        {
+                            columna++;
+                        }
+                        else
+                        {
+                            //Error
+                            numError++;
+                            columna++;
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una comilla", fila, columna);
+                            listaErrores.Add(token);
                         }
 
                         break;

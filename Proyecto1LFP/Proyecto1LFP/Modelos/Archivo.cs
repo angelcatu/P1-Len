@@ -13,6 +13,7 @@ namespace Proyecto1LFP.Modelos
     {
 
         private List<Token> listaTokens = Analizador.listaTokens;
+        private List<Token> listaErrores = Analizador.listaErrores;
 
         private Operacion operacion;
         private Grafica grafica;
@@ -39,11 +40,21 @@ namespace Proyecto1LFP.Modelos
 
         }
 
-        private void crearReporteErrores()
+        public void crearReporteErrores()
         {
+            try
+            {
+                File.WriteAllText(ruta+nombre+"."+extension, reporteDeErrores());
+                MessageBox.Show("Existen errores en la consola");
+                abrirDocumento(ruta, nombre, extension);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Hubo un problema al generar el html de errores");
+            }
 
         }
-
+     
         private void crearReporteArbol()
         {
             
@@ -103,6 +114,58 @@ namespace Proyecto1LFP.Modelos
                         + "<td align = 'center' >" + token.getId() + "</td>\n"
                         + "<td align = 'center' >" + token.getToken() + "</td>\n"
                         + "<td align = 'center' >" + token.getLexema() + "</td>\n"
+                        + "<td align = 'center' >" + token.getFila() + "</td>\n"
+                        + "<td align = 'center' >" + token.getColumna() + "</td>\n"
+
+                        + "</tr>\n";
+            }
+
+
+            contenido += "</table>\n</body>\n</html>";
+
+
+
+            return contenido;
+        }
+
+        private string reporteDeErrores()
+        {
+            String contenido = "<html>\n"
+              + "<head>"
+              + "<utf-8>"
+              + "\n<title>REPORTE DE ERRORES</title>\n"
+              + "<style>"
+              + "body{"
+              + "background-color: #ead48a;"
+              + "}"
+              + ""
+              + "table: hover{"
+              + "width: 50%;"
+              + "}"
+              + ""
+              + "th{"
+              + "height: 25px;"
+              + "}"
+              + "</style>"
+              + ""
+              + "</head>"
+              + "<body align='center'>\n"
+              + "<table border = '1' align = 'center'>"
+              + "<caption> <h3>Reporte de errores </h3> </caption>"
+              + "<tr>"
+              + "<th> <Strong>IdToken</Strong></th>"
+              + "<th> <strong>Lexema  </strong>  </th>\n"
+              + "<th> <strong> Descripcion   </strong>  </th>\n"
+              + "<th> <strong> Fila   </strong>  </th>\n"
+              + "<th> <strong> Columna   </strong>  </th>\n"
+              + "</tr>";
+
+            foreach (Token token in listaErrores)
+            {
+                contenido += "<tr>\n"
+                        + "<td align = 'center' >" + token.getId() + "</td>\n"
+                        + "<td align = 'center' >" + token.getLexema() + "</td>\n"
+                        + "<td align = 'center' >" + token.getDescripcion() + "</td>\n"
                         + "<td align = 'center' >" + token.getFila() + "</td>\n"
                         + "<td align = 'center' >" + token.getColumna() + "</td>\n"
 

@@ -16,6 +16,7 @@ namespace Proyecto1LFP
 
         private Analizador analizador = new Analizador();
         private List<Token> listaTokens = Analizador.listaTokens;
+        private List<Token> listaErrores = Analizador.listaErrores;
 
         public Form1()
         {
@@ -29,7 +30,21 @@ namespace Proyecto1LFP
 
         private void analizarToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             enviarAAnalizador();
+                        
+        }
+
+        private void generarReporteErrores()
+        {
+            Archivo archivo = new Archivo("Reporte de errores", "html");
+            archivo.crearReporteErrores();
+        }
+
+        private void generarReporteDeTokens()
+        {
+            Archivo archivo = new Archivo("ReporteTokens", "html");
+            archivo.createHTML();            
         }
 
         private void enviarAAnalizador()
@@ -43,10 +58,7 @@ namespace Proyecto1LFP
 
             if(cadena.Length > 0)
             {
-                analizador.analizarEntrada(cadena);
-                Archivo archivo = new Archivo("ReporteTokens", "html");
-                archivo.createHTML();
-                listaTokens.Clear();
+                analizador.analizarEntrada(cadena);                
             }
             else
             {
@@ -60,7 +72,18 @@ namespace Proyecto1LFP
                     analizador.analizarEntrada(cadena);
                 }             
             }
-            
+
+            if (listaErrores.Count == 0)
+            {
+                generarReporteDeTokens();
+                listaTokens.Clear();
+            }
+            else
+            {
+                generarReporteErrores();
+                listaErrores.Clear();
+            }
+
         }
 
         private void btnAnalizar_Click(object sender, EventArgs e)
@@ -99,6 +122,16 @@ namespace Proyecto1LFP
                 MessageBox.Show("No se pudo abrir el archivo lf");
             }
 
+        }
+
+        private void ejecutarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
