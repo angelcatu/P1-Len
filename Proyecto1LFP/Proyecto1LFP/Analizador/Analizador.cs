@@ -461,7 +461,7 @@ namespace Proyecto1LFP.Modelos
                             }
                             else
                             {
-                                listaTokens.Add(new Token(numCaracter - 1, "Tk_Identificador", lexema, fila, columna, "“" + lexema + "”["));
+                                listaTokens.Add(new Token(numCaracter - 1, "Tk_Identificador", lexema, fila, columna, " \"" + lexema + "\"["));
                                 lexema = "";
                                 estado = 5;
 
@@ -475,7 +475,7 @@ namespace Proyecto1LFP.Modelos
                         } else if (caracter[indice] == 46)
                         {
                             numCaracter++;
-                            listaTokens.Add(new Token(numCaracter - 1, "Tk_IdentificadorOrigen", lexema, fila, columna, "“lexema”:"));
+                            listaTokens.Add(new Token(numCaracter - 1, "Tk_IdentificadorOrigen", lexema, fila, columna, " \""+lexema+"\":"));
                             listaTokens.Add(new Token(numCaracter, "Tk_Punto", caracter[indice].ToString(), fila, columna, ""));
                             //llenarListaTokens(numCaracter - 1, lexema, fila, columna);                            
                             lexema = "";
@@ -611,7 +611,7 @@ namespace Proyecto1LFP.Modelos
                             //Error
                             numError++;
                             columna++;
-                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una letra o un guión", fila, columna);
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una letra o un guion", fila, columna);
                             listaErrores.Add(token);
                         }
 
@@ -681,7 +681,7 @@ namespace Proyecto1LFP.Modelos
                         } else if (cadena[indice] == 59)
                         {
                             numCaracter++;
-                            listaTokens.Add(new Token(numCaracter, "Tk_IdentificadorDestino", lexema, fila, columna, ""));
+                            listaTokens.Add(new Token(numCaracter, "Tk_IdentificadorDestino", lexema, fila, columna, " \""+lexema+"\""));
                             lexema = "";
                             estado = 5;
                             
@@ -714,7 +714,7 @@ namespace Proyecto1LFP.Modelos
                             //Error
                             numError++;
                             columna++;
-                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una letra o dígito", fila, columna);
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una letra o digito", fila, columna);
                             listaErrores.Add(token);
                         }
 
@@ -766,7 +766,7 @@ namespace Proyecto1LFP.Modelos
                             //Error
                             numError++;
                             columna++;
-                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una operador o un dígito", fila, columna);
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una operador o un digito", fila, columna);
                             listaErrores.Add(token);
                         }
                         break;
@@ -809,7 +809,7 @@ namespace Proyecto1LFP.Modelos
                             //Error
                             numError++;
                             columna++;
-                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una dígito", fila, columna);
+                            Token token = new Token(numError, caracter[indice].ToString(), "Se esperaba una digito", fila, columna);
                             listaErrores.Add(token);
                         }
 
@@ -860,7 +860,7 @@ namespace Proyecto1LFP.Modelos
                     case 14:
 
                         numCaracter++;
-                        listaTokens.Add(new Token(numCaracter, "Tk_Etiqueta", lexema, fila, columna, "“<f0>|"+lexema+"|<f1>” shape =”record”"));
+                        listaTokens.Add(new Token(numCaracter, "Tk_Etiqueta", lexema, fila, columna, " \"<f0>|"+lexema+"|<f1>\" shape =\"record\"]"));
                         lexema = "";
                         indice--;
                         estado = 5;
@@ -886,7 +886,7 @@ namespace Proyecto1LFP.Modelos
                     break;
 
                 case "Graficar":                    
-                    listaTokens.Add(new Token(numCaracter, "Tk_Graficar", lexema, fila, columna, "digraph G{graph[rankdir = “TB”];"));
+                    listaTokens.Add(new Token(numCaracter, "Tk_Graficar", lexema, fila, columna, " digraph G{graph[rankdir = \"TB\"];"));
                     break;
 
                 case "Node":
@@ -895,23 +895,23 @@ namespace Proyecto1LFP.Modelos
                     break;
 
                 case "Valor":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Tipo", lexema, fila, columna, "label = "));
+                    listaTokens.Add(new Token(numCaracter, "Tk_Tipo", lexema, fila, columna, " label ="));
                     break;
 
                 case "Operador":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Tipo", lexema, fila, columna, ""));
+                    listaTokens.Add(new Token(numCaracter, "Tk_Tipo", lexema, fila, columna, " label ="));
                     break;
 
                 case "IZQ":
-                    listaTokens.Add(new Token(numCaracter, "Tk_VerticeIZQ", lexema, fila, columna, "f0"));
+                    listaTokens.Add(new Token(numCaracter, "Tk_VerticeIZQ", lexema, fila, columna, " f0"));
                     break;
 
                 case "DER":
-                    listaTokens.Add(new Token(numCaracter, "Tk_VerticeDER", lexema, fila, columna, "f1"));
+                    listaTokens.Add(new Token(numCaracter, "Tk_VerticeDER", lexema, fila, columna, " f1"));
                     break;
 
                 case "->":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Flecha", lexema, fila, columna, ""));
+                    listaTokens.Add(new Token(numCaracter, "Tk_Flecha", lexema, fila, columna, "->"));
                     break;
 
                 case "0":
@@ -973,7 +973,7 @@ namespace Proyecto1LFP.Modelos
                     break;
 
                 case "{":
-                    listaTokens.Add(new Token(numCaracter, "Tk_LlaveAbierta", lexema, fila, columna, "node[fontsize = “16” shape = “ellipse”];"));
+                    listaTokens.Add(new Token(numCaracter, "Tk_LlaveAbierta", lexema, fila, columna, "node[fontsize = \"16\" shape = \"ellipse\"];"));
                     
                     break;
 
@@ -994,11 +994,20 @@ namespace Proyecto1LFP.Modelos
                     break;
 
                 case ">":
-                    listaTokens.Add(new Token(numCaracter, "Tk_MayorQue", lexema, fila, columna, "]"));
+                    listaTokens.Add(new Token(numCaracter, "Tk_MayorQue", lexema, fila, columna, ""));
                     break;
 
                 case ";":
-                    listaTokens.Add(new Token(numCaracter, "Tk_PuntoYComa", lexema, fila, columna, ";"));
+
+                    if (listaTokens[numCaracter - 1].Equals("}"))
+                    {
+                        listaTokens.Add(new Token(numCaracter, "Tk_PuntoYComa", lexema, fila, columna, ""));
+                    }
+                    else
+                    {
+                        listaTokens.Add(new Token(numCaracter, "Tk_PuntoYComa", lexema, fila, columna, ";"));
+                    }
+                    
                     break;                
 
         

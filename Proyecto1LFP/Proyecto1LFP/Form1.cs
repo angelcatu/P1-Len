@@ -47,6 +47,12 @@ namespace Proyecto1LFP
             archivo.createHTML();            
         }
 
+        private void generarReporteDeArbol()
+        {
+            Archivo archivo = new Archivo("Reporte de árbol", "html");
+            archivo.crearReporteArbol();
+        }
+
         private void enviarAAnalizador()
         {
             String cadena = txtBoxAnalalizador.Text;
@@ -76,7 +82,9 @@ namespace Proyecto1LFP
             if (listaErrores.Count == 0)
             {
                 generarReporteDeTokens();
+                generarReporteDeArbol();
                 listaTokens.Clear();
+
             }
             else
             {

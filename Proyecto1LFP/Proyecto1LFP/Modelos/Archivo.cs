@@ -16,7 +16,7 @@ namespace Proyecto1LFP.Modelos
         private List<Token> listaErrores = Analizador.listaErrores;
 
         private Operacion operacion;
-        private Grafica grafica;
+        private Grafica grafica = new Grafica();
 
         private String nombre;
         private String extension;
@@ -55,10 +55,10 @@ namespace Proyecto1LFP.Modelos
 
         }
      
-        private void crearReporteArbol()
+        public void crearReporteArbol()
         {
-            
-        }
+            generarDOT();
+        }        
 
         public void createHTML()
         {            
@@ -73,6 +73,33 @@ namespace Proyecto1LFP.Modelos
             catch (Exception e)
             {
                 MessageBox.Show("Hubo un problema al generar el html de tokens");
+            }
+        }
+
+        private void generarDOT()
+        {
+            try
+            {
+
+                //Pass the filepath and filename to the StreamWriter Constructor
+                StreamWriter sw = new StreamWriter(@ruta+"grafo.dot");
+
+                //Write a line of text
+                if(grafica.generarCodigo().Length > 0)
+                {
+                    sw.WriteLine(grafica.generarCodigo());
+                }
+                
+                //Close the file
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executing finally block.");
             }
         }
 

@@ -16,8 +16,26 @@ namespace Proyecto1LFP.Modelos
         {
             Image image = null;
 
+            
+
             return image;
         } 
+
+
+        public String generarCodigo()
+        {
+            String codigoGraphviz = "";
+
+            foreach (Token token in listaTokens)
+            {
+
+                if (!token.getCodigoGraphviz().Equals("")){
+                    codigoGraphviz += token.getCodigoGraphviz();
+                }                
+            }
+
+            return codigoGraphviz;
+        }
 
     }
 }
