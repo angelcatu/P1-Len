@@ -9,7 +9,7 @@ namespace Proyecto1LFP.Modelos
     class Pila
     {
 
-        private List<Celda> listaCeldas;
+        
         private String valor;
         private int precedencia;
 
@@ -20,10 +20,7 @@ namespace Proyecto1LFP.Modelos
 
         }
 
-        public Pila(Celda celda)
-        {
-            this.listaCeldas = new List<Celda>();
-        }
+      
 
 
         public String getValor()

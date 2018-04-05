@@ -127,17 +127,20 @@ namespace Proyecto1LFP.Modelos
                         {
                             cola.Add(numero);
                             numero = "";
-                            listaPila.Add(new Pila("(", 3));
-                        }                        
+                            
+                        }
+
+                        listaPila.Add(new Pila("(", 3));
 
                         //)
-                    }else if(cadena[i] == 41)
+                    }
+                    else if(cadena[i] == 41)
                     {
                         if (!numero.Equals(""))
                         {
                             cola.Add(numero);
                             numero = "";
-                            listaPila.Add(new Pila("(", 3));
+                            
                         }
                         quitarSimbolosEntreParentesis();
                     }
@@ -181,9 +184,13 @@ namespace Proyecto1LFP.Modelos
         private void obtenerAsociacion()
         {
             int longitud = listaPila.Count;
-            
 
-            if (!listaPila[(longitud-1)].getValor().Equals("(") | !listaPila[(longitud - 2)].getValor().Equals("("))
+            if(listaPila[(longitud - 2)].getValor().Equals("("))
+            {
+
+            }
+
+            if (!listaPila[(longitud-2)].getValor().Equals("("))
             {
                 while (listaPila[(longitud-2)].getPrecedencia() > listaPila[(longitud-1)].getPrecedencia() 
                         |listaPila[(longitud-2)].getPrecedencia() == listaPila[(longitud-1)].getPrecedencia())
@@ -206,7 +213,7 @@ namespace Proyecto1LFP.Modelos
 
                     }
 
-                    if(listaPila.Count == 1)
+                    if(listaPila.Count == 1 || listaPila[(longitud - 2)].getValor().Equals("("))
                     {
                         break;
                     }
