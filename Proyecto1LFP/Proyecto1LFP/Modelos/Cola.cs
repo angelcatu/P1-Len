@@ -12,6 +12,11 @@ namespace Proyecto1LFP.Modelos
 
         private int idCelda;
 
+        public Cola()
+        {
+
+        }
+
         public Cola(int idCelda)
         {
             this.idCelda = idCelda;

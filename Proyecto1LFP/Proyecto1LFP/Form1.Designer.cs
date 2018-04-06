@@ -34,6 +34,7 @@
             this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.guardarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.analizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualTécnicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualDeUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,7 +43,7 @@
             this.txtBoxLog = new System.Windows.Forms.TextBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnAnalizar = new System.Windows.Forms.Button();
-            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnShow = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,6 +96,13 @@
             this.analizarToolStripMenuItem.Text = "Analizar";
             this.analizarToolStripMenuItem.Click += new System.EventHandler(this.analizarToolStripMenuItem_Click);
             // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
             // ayudaToolStripMenuItem
             // 
             this.ayudaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -129,17 +137,18 @@
             this.txtBoxAnalalizador.Multiline = true;
             this.txtBoxAnalalizador.Name = "txtBoxAnalalizador";
             this.txtBoxAnalalizador.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBoxAnalalizador.Size = new System.Drawing.Size(492, 246);
+            this.txtBoxAnalalizador.Size = new System.Drawing.Size(492, 140);
             this.txtBoxAnalalizador.TabIndex = 1;
             // 
             // txtBoxLog
             // 
             this.txtBoxLog.BackColor = System.Drawing.SystemColors.MenuText;
             this.txtBoxLog.ForeColor = System.Drawing.SystemColors.Info;
-            this.txtBoxLog.Location = new System.Drawing.Point(13, 291);
+            this.txtBoxLog.Location = new System.Drawing.Point(13, 196);
             this.txtBoxLog.Multiline = true;
             this.txtBoxLog.Name = "txtBoxLog";
-            this.txtBoxLog.Size = new System.Drawing.Size(522, 56);
+            this.txtBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtBoxLog.Size = new System.Drawing.Size(458, 151);
             this.txtBoxLog.TabIndex = 2;
             // 
             // btnClear
@@ -162,18 +171,22 @@
             this.btnAnalizar.UseVisualStyleBackColor = true;
             this.btnAnalizar.Click += new System.EventHandler(this.btnAnalizar_Click);
             // 
-            // salirToolStripMenuItem
+            // btnShow
             // 
-            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.salirToolStripMenuItem.Text = "Salir";
-            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            this.btnShow.Location = new System.Drawing.Point(511, 174);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(23, 67);
+            this.btnShow.TabIndex = 5;
+            this.btnShow.Text = "S";
+            this.btnShow.UseVisualStyleBackColor = true;
+            this.btnShow.Click += new System.EventHandler(this.btnShow_Click_1);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(547, 359);
+            this.Controls.Add(this.btnShow);
             this.Controls.Add(this.btnAnalizar);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.txtBoxLog);
@@ -206,6 +219,7 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnAnalizar;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        private System.Windows.Forms.Button btnShow;
     }
 }
 

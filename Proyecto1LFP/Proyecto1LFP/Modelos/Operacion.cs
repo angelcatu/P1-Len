@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Proyecto1LFP.Modelos
 {
@@ -10,15 +11,19 @@ namespace Proyecto1LFP.Modelos
     {
 
         private Expresion expresion = new Expresion();
+        private Cola cola;
         private List<Pila> listaPila = new List<Pila>();
-
+        
+        private int indice = 0;  //Indice de la cola
 
         private List<Operacion> listaOperaciones = new List<Operacion>();
 
         private List<Expresion> listaExpresiones = Analizador.listaExpresiones;
         List<Operacion> listaOperadoresInfo;
-        
-        private List<String> cola = new List<string>();        
+
+        //private List<String> cola = new List<string>();
+        private List<Cola> listaCola  = new List<Cola>();
+        private List<Celda> listaCeldas;
 
 
         private String expAritmetica;
@@ -69,6 +74,9 @@ namespace Proyecto1LFP.Modelos
             foreach (Expresion expresion in listaExpresiones)
             {
 
+                indice++;
+                cola = new Cola(indice);
+                listaCeldas = cola.getListaCeldas();
                 crearPostFijo(expresion.getSimbolo());
                 
             }
@@ -88,7 +96,7 @@ namespace Proyecto1LFP.Modelos
 
                     if(i == (expresion.Length-1))
                     {
-                        cola.Add(numero);
+                        cola.getListaCeldas().Add(new Celda(numero));                        
                         numero = "";
                     }
 
@@ -96,8 +104,8 @@ namespace Proyecto1LFP.Modelos
                     //Operadores
                 }else if(cadena[i] == 42 | cadena[i] == 43 | cadena[i] == 45 | cadena[i] == 47)
                 {
-                    
-                    cola.Add(numero);
+
+                    cola.getListaCeldas().Add(new Celda(numero));
                     numero = "";
 
                     for (int j  = 0; j < listaOperadoresInfo.Count; j++) 
@@ -126,7 +134,7 @@ namespace Proyecto1LFP.Modelos
 
                         if (!numero.Equals(""))
                         {
-                            cola.Add(numero);
+                            cola.getListaCeldas().Add(new Celda(numero));
                             numero = "";
                             
                         }
@@ -139,7 +147,7 @@ namespace Proyecto1LFP.Modelos
                     {
                         if (!numero.Equals(""))
                         {
-                            cola.Add(numero);
+                            cola.getListaCeldas().Add(new Celda(numero));
                             numero = "";
                             
                         }
@@ -150,29 +158,37 @@ namespace Proyecto1LFP.Modelos
 
             while(listaPila.Count > 0)
             {
-                cola.Add(listaPila[listaPila.Count-1].getValor());
+                cola.getListaCeldas().Add(new Celda(listaPila[listaPila.Count - 1].getValor()));                
                 listaPila.RemoveAt(listaPila.Count-1);
             }
 
 
-            mostrarCola();
+            //mostrarCola();
+
+
             //FIN
+            
 
         }
 
-        private void mostrarCola()
+        public String mostrarCola()
         {
-            foreach (String lista in cola) 
+            String resultado = "";
+
+            foreach (Celda lista in listaCeldas) 
             {
-                Console.WriteLine("La cola es: " + lista);
+                resultado += lista.getCelda();
             }
-        }
+
+
+            return resultado;           
+        }        
 
         private void quitarSimbolosEntreParentesis()
         {
             while (!listaPila[listaPila.Count-1].getValor().Equals("("))
             {
-                cola.Add(listaPila[listaPila.Count-1].getValor());
+                cola.getListaCeldas().Add(new Celda(listaPila[listaPila.Count - 1].getValor()));                
                 listaPila.RemoveAt(listaPila.Count-1);
             }
 
@@ -198,14 +214,14 @@ namespace Proyecto1LFP.Modelos
                 {
                     if (listaPila[(longitud - 2)].getPrecedencia() > listaPila[longitud-1].getPrecedencia())
                     {
-
-                        cola.Add(listaPila[longitud - 2].getValor());
+                        
+                        cola.getListaCeldas().Add(new Celda(listaPila[longitud - 2].getValor()));
                         listaPila.RemoveAt(longitud - 2);
 
                     }
                     else if (listaPila[(longitud - 2)].getPrecedencia() == listaPila[longitud-1].getPrecedencia())
                     {
-                        cola.Add(listaPila[longitud - 2].getValor());
+                        cola.getListaCeldas().Add(new Celda(listaPila[longitud - 2].getValor()));
                         listaPila.RemoveAt(longitud - 2);
 
                     }
