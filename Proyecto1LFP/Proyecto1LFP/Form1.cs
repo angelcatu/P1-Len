@@ -154,12 +154,6 @@ namespace Proyecto1LFP
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void btnShow_Click_1(object sender, EventArgs e)
-        {
-
-            operacion.borrarCeldas();
-        }
+        }    
     }
 }

@@ -19,13 +19,14 @@ namespace Proyecto1LFP.Modelos
         private List<Expresion> listaExpresiones = Analizador.listaExpresiones;
         List<Operacion> listaOperadoresInfo;
 
-        //private List<String> cola = new List<string>();
+        private List<String> listaColaResultados = new List<string>();
         private List<Cola> listaCola = new List<Cola>();
         private List<Celda> listaCeldas;
 
-
+        private int indice = 0;
         private String expAritmetica;
         private int resultado;
+        private String resultadoPostFija ;
 
         private int precedencia;
         private String operacion;
@@ -77,12 +78,16 @@ namespace Proyecto1LFP.Modelos
             foreach (Expresion expresion in listaExpresiones)
             {
 
-                indice++;
-                cola = new Cola(indice);
+                indice++;                               
+                cola = new Cola(indice);                
                 listaCeldas = cola.getListaCeldas();
                 crearPostFijo(expresion.getSimbolo());
+                mandarAResolver();
+                
 
             }
+
+            listaExpresiones.Clear();
 
         }
 
@@ -95,11 +100,10 @@ namespace Proyecto1LFP.Modelos
                 if (Char.IsDigit(cadena[i]))
                 {
 
-                    numero += cadena[i].ToString();
-
+                    numero += cadena[i].ToString();                    
                     if (i == (expresion.Length - 1))
                     {
-                        cola.getListaCeldas().Add(new Celda(numero));
+                        cola.getListaCeldas().Add(new Celda(numero));                        
                         numero = "";
                     }
 
@@ -109,6 +113,7 @@ namespace Proyecto1LFP.Modelos
                 {
 
                     cola.getListaCeldas().Add(new Celda(numero));
+                    
                     numero = "";
 
                     for (int j = 0; j < listaOperadoresInfo.Count; j++)
@@ -118,7 +123,7 @@ namespace Proyecto1LFP.Modelos
                             if (listaPila.Count == 0)
                             {
                                 listaPila.Add(new Pila(cadena[i].ToString(), listaOperadoresInfo[j].getPrecedencia()));
-
+                                
                             }
                             else
                             {
@@ -163,37 +168,95 @@ namespace Proyecto1LFP.Modelos
             {
                 cola.getListaCeldas().Add(new Celda(listaPila[listaPila.Count - 1].getValor()));
                 listaPila.RemoveAt(listaPila.Count - 1);
-            }
-
-
-            mostrarCola();
-
-
-
+            }            
             //FIN
 
 
         }
 
-        public void mostrarCola()
-        {
-            String resultado = "";
+        private int indiceResolver = 0;
 
-            indiceAux = 
-
-            foreach (Celda cola in listaCeldas)
+        public void mandarAResolver()
+        {            
+            for (int indiceResolver = 0; indiceResolver < listaCeldas.Count; indiceResolver++)
             {
-                resultado += cola.getCelda();
-                
-            }
-
-            MessageBox.Show(resultado);
+                resolverExpresion(listaCeldas[indiceResolver].getCelda(), indiceResolver);
+            }                                   
         }
 
+        private void resolverExpresion(String cola, int indice)
+        {            
+            String tipo = evaluarTipo(cola);
 
-        public void borrarCeldas()
+            if (tipo.Equals("numero"))
+            {
+
+            }else if (tipo.Equals("operador"))
+            {
+                switch (cola)
+                {
+                    case "+":
+                        try
+                        {
+                            int asoIzq = Int32.Parse(listaCeldas[indice-2].getCelda());
+                            int asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
+
+                            resolver(asoIzq, "+", asoDer);
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show("Error: no se puede transformar el valor de string a int ");
+                        }
+
+
+                        break;
+
+                    case "-":
+                        break;
+
+                    case "*":
+                        break;
+
+                    case "/":
+                        break;
+                }
+            }                                    
+        }        
+        private void resolver(int asoIzq, string operador, int asoDer)
         {
-                                       
+            switch (operador)
+            {
+                case "+":
+
+                    break;
+
+                case "-":
+                    break;
+
+                case "*":
+                    break;
+
+                case "/":
+                    break;
+            }
+
+            indiceResolver = 0;
+        }
+
+        private string evaluarTipo(string cola)
+        {
+            String tipo = "";
+
+            if (cola.Equals("*") | cola.Equals("+") | cola.Equals("-") | cola.Equals("/"))
+            {
+                tipo = "operador";
+
+            }
+            else
+            {
+                tipo = "numero";
+            }
+            return tipo;
         }
 
         private void quitarSimbolosEntreParentesis()
@@ -212,18 +275,16 @@ namespace Proyecto1LFP.Modelos
 
         private void obtenerAsociacion()
         {
-            int longitud = listaPila.Count;
-
-            if(listaPila[(longitud - 2)].getValor().Equals("("))
-            {
-
-            }
+            int longitud = listaPila.Count;       
 
             if (!listaPila[(longitud-2)].getValor().Equals("("))
             {
                 while (listaPila[(longitud-2)].getPrecedencia() > listaPila[(longitud-1)].getPrecedencia() 
                         |listaPila[(longitud-2)].getPrecedencia() == listaPila[(longitud-1)].getPrecedencia())
                 {
+
+                    //if (listaPila[longitud - 2].getValor().Equals("*")) { }
+
                     if (listaPila[(longitud - 2)].getPrecedencia() > listaPila[longitud-1].getPrecedencia())
                     {
                         
