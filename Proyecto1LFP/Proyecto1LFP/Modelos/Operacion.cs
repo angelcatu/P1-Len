@@ -27,7 +27,7 @@ namespace Proyecto1LFP.Modelos
 
 
         private String expAritmetica;
-        private int resultado ;
+        private float resultado ;
         private int precedencia;
         private String operacion;
         private String simbolo;
@@ -42,7 +42,7 @@ namespace Proyecto1LFP.Modelos
             return expAritmetica;
         }
 
-        public int getResultado()
+        public float getResultado()
         {
             return resultado;
         }
@@ -59,7 +59,7 @@ namespace Proyecto1LFP.Modelos
             listaOperadoresInfo.Add(new Operacion(3, "Agrupacion", ")"));
         }
 
-        public Operacion(String expAritmetica, int resultado)
+        public Operacion(String expAritmetica, float resultado)
         {
             this.expAritmetica = expAritmetica;
             this.resultado = resultado;
@@ -92,7 +92,7 @@ namespace Proyecto1LFP.Modelos
                 cola = new Cola(indice);                
                 listaCeldas = cola.getListaCeldas();
                 crearPostFijo(expresion.getSimbolo());
-                int respuesta = mandarAResolver();
+                float respuesta = mandarAResolver();
                 String expresionAritmetica = expresion.getSimbolo();
                 agregarAListaDeRespuestas(expresionAritmetica, respuesta);
                 
@@ -104,7 +104,7 @@ namespace Proyecto1LFP.Modelos
 
         }
 
-        private void agregarAListaDeRespuestas(string expresionAritmetica, int respuesta)
+        private void agregarAListaDeRespuestas(string expresionAritmetica, float respuesta)
         {
             listaRespuestas.Add(new Operacion(expresionAritmetica, respuesta));
         }
@@ -123,7 +123,12 @@ namespace Proyecto1LFP.Modelos
 
             for (int i = 0; i < expresion.Length; i++)
             {
-                if (Char.IsDigit(cadena[i]))
+                    //Inicio con negativo
+                if (esInicio(i)){
+
+                    numero += cadena[0].ToString();
+
+                }else if (Char.IsDigit(cadena[i]))
                 {
 
                     numero += cadena[i].ToString();                    
@@ -137,7 +142,7 @@ namespace Proyecto1LFP.Modelos
                     //Operadores
                 } else if (cadena[i] == 42 | cadena[i] == 43 | cadena[i] == 45 | cadena[i] == 47)
                 {
-
+                                     
                     cola.getListaCeldas().Add(new Celda(numero));
                     
                     numero = "";
@@ -199,10 +204,22 @@ namespace Proyecto1LFP.Modelos
 
 
         }
-        
-        public int mandarAResolver()
+
+        private bool esInicio(int i)
+        {            
+            if(i == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }            
+        }
+
+        public float mandarAResolver()
         {
-            int respuesta = 0;
+            float respuesta = 0;
 
           
 
@@ -214,9 +231,9 @@ namespace Proyecto1LFP.Modelos
             return respuesta;
         }
 
-        private int resolverExpresion(String cola, int indice)
+        private float resolverExpresion(String cola, int indice)
         {
-            int resultado = 0;
+            float resultado = 0;
             String tipo = evaluarTipo(cola);
 
             if (tipo.Equals("numero"))
@@ -231,14 +248,14 @@ namespace Proyecto1LFP.Modelos
                     case "+":
                         try
                             {
-                            int asoIzq = Int32.Parse(listaCeldas[indice-2].getCelda());
-                            int asoDer = Int32.Parse(listaCeldas[indice-1].getCelda());
-
+                            float asoIzq = Int32.Parse(listaCeldas[indice-2].getCelda());
+                            float asoDer = Int32.Parse(listaCeldas[indice-1].getCelda());
+                            
                             resultado = resolver(asoIzq, "+", asoDer, indice);
                         }
                         catch (Exception e)
                         {
-                            MessageBox.Show("Error: no se puede transformar el valor de string a int ");
+                            MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
                         }
 
 
@@ -248,14 +265,14 @@ namespace Proyecto1LFP.Modelos
 
                         try
                         {
-                            int asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());
-                            int asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
+                            float asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());                            
+                            float asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
 
                             resultado = resolver(asoIzq, "-", asoDer, indice);
                         }
                         catch (Exception e)
                         {
-                            MessageBox.Show("Error: no se puede transformar el valor de string a int ");
+                            MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
                         }
 
                         break;
@@ -264,14 +281,14 @@ namespace Proyecto1LFP.Modelos
 
                         try
                         {
-                            int asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());
-                            int asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
+                            float asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());
+                            float asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
 
                             resultado = resolver(asoIzq, "*", asoDer, indice);
                         }
                         catch (Exception e)
                         {
-                            MessageBox.Show("Error: no se puede transformar el valor de string a int ");
+                            MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
                         }
 
                         break;
@@ -280,14 +297,14 @@ namespace Proyecto1LFP.Modelos
 
                         try
                         {
-                            int asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());
-                            int asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
+                            float asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());
+                            float asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
 
                             resultado = resolver(asoIzq, "/", asoDer, indice);
                         }
                         catch (Exception e)
                         {
-                            MessageBox.Show("Error: no se puede transformar el valor de string a int ");
+                            MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
                         }
 
                         break;
@@ -296,10 +313,10 @@ namespace Proyecto1LFP.Modelos
 
             return resultado;
         }        
-        private int resolver(int asoIzq, string operador, int asoDer, int indice)
+        private float resolver(float asoIzq, string operador, float asoDer, int indice)
         {
-            int resultado = 0;
-            int operacion = 0;
+            float resultado = 0;
+            float operacion = 0f;
 
             switch (operador)
             {
@@ -372,15 +389,20 @@ namespace Proyecto1LFP.Modelos
                 listaPila.RemoveAt(listaPila.Count-1);
             }
         }
-
+        
         private void obtenerAsociacion()
         {
-            int longitud = listaPila.Count;       
+            int longitud = listaPila.Count;
+
+            if (listaPila[longitud - 1].getValor().Equals("-"))
+            {
+
+            }
 
             if (!listaPila[(longitud-2)].getValor().Equals("("))
             {
                 while (listaPila[(longitud-2)].getPrecedencia() > listaPila[(longitud-1)].getPrecedencia() 
-                        |listaPila[(longitud-2)].getPrecedencia() == listaPila[(longitud-1)].getPrecedencia())
+                        || listaPila[(longitud-2)].getPrecedencia() == listaPila[(longitud-1)].getPrecedencia())
                 {
 
                     //if (listaPila[longitud - 2].getValor().Equals("*")) { }
@@ -390,19 +412,21 @@ namespace Proyecto1LFP.Modelos
                         
                         cola.getListaCeldas().Add(new Celda(listaPila[longitud - 2].getValor()));
                         listaPila.RemoveAt(longitud - 2);
+                        longitud = listaPila.Count;
 
                     }
                     else if (listaPila[(longitud - 2)].getPrecedencia() == listaPila[longitud-1].getPrecedencia())
                     {
                         cola.getListaCeldas().Add(new Celda(listaPila[longitud - 2].getValor()));
                         listaPila.RemoveAt(longitud - 2);
+                        longitud = listaPila.Count;
 
                     }
                     else if (listaPila[(longitud - 2)].getPrecedencia() < listaPila[longitud-1].getPrecedencia())
                     {
 
                     }
-
+                    
                     if(listaPila.Count == 1 || listaPila[(listaPila.Count-2)].getValor().Equals("("))
                     {
                         break;

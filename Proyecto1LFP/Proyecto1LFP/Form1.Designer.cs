@@ -43,6 +43,7 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.btnAnalizar = new System.Windows.Forms.Button();
             this.txtBoxAnalalizador = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -170,11 +171,22 @@
             this.txtBoxAnalalizador.Size = new System.Drawing.Size(492, 240);
             this.txtBoxAnalalizador.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(511, 174);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(23, 67);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "C";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(547, 359);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAnalizar);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.txtBoxLog);
@@ -207,6 +219,7 @@
         private System.Windows.Forms.Button btnAnalizar;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.TextBox txtBoxAnalalizador;
+        private System.Windows.Forms.Button button1;
     }
 }
 

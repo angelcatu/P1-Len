@@ -96,7 +96,7 @@ namespace Proyecto1LFP
                 if(listaExpresiones.Count > 0)
                 {
 
-                    operacion.operarExpresion();
+                    //operacion.operarExpresion();
                 }
 
 
@@ -154,6 +154,11 @@ namespace Proyecto1LFP
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-        }    
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            analizador.mostrarExpresiones();
+        }
     }
 }
