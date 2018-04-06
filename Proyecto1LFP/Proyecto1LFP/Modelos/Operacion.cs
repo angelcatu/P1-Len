@@ -14,15 +14,13 @@ namespace Proyecto1LFP.Modelos
         private Cola cola;
         private List<Pila> listaPila = new List<Pila>();
         
-        private int indice = 0;  //Indice de la cola
-
         private List<Operacion> listaOperaciones = new List<Operacion>();
 
         private List<Expresion> listaExpresiones = Analizador.listaExpresiones;
         List<Operacion> listaOperadoresInfo;
 
         //private List<String> cola = new List<string>();
-        private List<Cola> listaCola  = new List<Cola>();
+        private List<Cola> listaCola = new List<Cola>();
         private List<Celda> listaCeldas;
 
 
@@ -55,7 +53,7 @@ namespace Proyecto1LFP.Modelos
             this.expAritmetica = expAritmetica;
             this.resultado = resultado;
         }
-        
+
         public Operacion(int precedencia, String operacion, String simbolo)
         {
             this.precedencia = precedencia;
@@ -66,10 +64,15 @@ namespace Proyecto1LFP.Modelos
 
         private String numero;
 
+        public int getIndice()
+        {
+            return indice;
+        }
+
 
         public void operarExpresion()
         {
-            
+
 
             foreach (Expresion expresion in listaExpresiones)
             {
@@ -78,9 +81,9 @@ namespace Proyecto1LFP.Modelos
                 cola = new Cola(indice);
                 listaCeldas = cola.getListaCeldas();
                 crearPostFijo(expresion.getSimbolo());
-                
+
             }
-            
+
         }
 
         private void crearPostFijo(string expresion)
@@ -94,25 +97,25 @@ namespace Proyecto1LFP.Modelos
 
                     numero += cadena[i].ToString();
 
-                    if(i == (expresion.Length-1))
+                    if (i == (expresion.Length - 1))
                     {
-                        cola.getListaCeldas().Add(new Celda(numero));                        
+                        cola.getListaCeldas().Add(new Celda(numero));
                         numero = "";
                     }
 
 
                     //Operadores
-                }else if(cadena[i] == 42 | cadena[i] == 43 | cadena[i] == 45 | cadena[i] == 47)
+                } else if (cadena[i] == 42 | cadena[i] == 43 | cadena[i] == 45 | cadena[i] == 47)
                 {
 
                     cola.getListaCeldas().Add(new Celda(numero));
                     numero = "";
 
-                    for (int j  = 0; j < listaOperadoresInfo.Count; j++) 
+                    for (int j = 0; j < listaOperadoresInfo.Count; j++)
                     {
                         if (cadena[i].ToString().Equals(listaOperadoresInfo[j].getSimbolo()))
                         {
-                            if(listaPila.Count == 0)
+                            if (listaPila.Count == 0)
                             {
                                 listaPila.Add(new Pila(cadena[i].ToString(), listaOperadoresInfo[j].getPrecedencia()));
 
@@ -125,64 +128,73 @@ namespace Proyecto1LFP.Modelos
                         }
                     }
                     // ( )
-                }else if(cadena[i] == 40 | cadena[i] == 41)
+                } else if (cadena[i] == 40 | cadena[i] == 41)
                 {
 
-                        //(
-                    if(cadena[i] == 40)
+                    //(
+                    if (cadena[i] == 40)
                     {
 
                         if (!numero.Equals(""))
                         {
                             cola.getListaCeldas().Add(new Celda(numero));
                             numero = "";
-                            
+
                         }
 
                         listaPila.Add(new Pila("(", 3));
 
                         //)
                     }
-                    else if(cadena[i] == 41)
+                    else if (cadena[i] == 41)
                     {
                         if (!numero.Equals(""))
                         {
                             cola.getListaCeldas().Add(new Celda(numero));
                             numero = "";
-                            
+
                         }
                         quitarSimbolosEntreParentesis();
                     }
                 }
             }
 
-            while(listaPila.Count > 0)
+            while (listaPila.Count > 0)
             {
-                cola.getListaCeldas().Add(new Celda(listaPila[listaPila.Count - 1].getValor()));                
-                listaPila.RemoveAt(listaPila.Count-1);
+                cola.getListaCeldas().Add(new Celda(listaPila[listaPila.Count - 1].getValor()));
+                listaPila.RemoveAt(listaPila.Count - 1);
             }
 
 
-            //mostrarCola();
+            mostrarCola();
+
 
 
             //FIN
-            
+
 
         }
 
-        public String mostrarCola()
+        public void mostrarCola()
         {
             String resultado = "";
 
-            foreach (Celda lista in listaCeldas) 
+            indiceAux = 
+
+            foreach (Celda cola in listaCeldas)
             {
-                resultado += lista.getCelda();
+                resultado += cola.getCelda();
+                
             }
 
+            MessageBox.Show(resultado);
+        }
 
-            return resultado;           
-        }        
+
+        public void borrarCeldas()
+        {
+                                       
+        }
 
         private void quitarSimbolosEntreParentesis()
         {

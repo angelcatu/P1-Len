@@ -39,11 +39,11 @@
             this.manualTécnicoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualDeUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtBoxAnalalizador = new System.Windows.Forms.TextBox();
             this.txtBoxLog = new System.Windows.Forms.TextBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnAnalizar = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
+            this.txtBoxAnalalizador = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,24 +131,15 @@
             this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de...";
             // 
-            // txtBoxAnalalizador
-            // 
-            this.txtBoxAnalalizador.Location = new System.Drawing.Point(13, 28);
-            this.txtBoxAnalalizador.Multiline = true;
-            this.txtBoxAnalalizador.Name = "txtBoxAnalalizador";
-            this.txtBoxAnalalizador.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBoxAnalalizador.Size = new System.Drawing.Size(492, 140);
-            this.txtBoxAnalalizador.TabIndex = 1;
-            // 
             // txtBoxLog
             // 
             this.txtBoxLog.BackColor = System.Drawing.SystemColors.MenuText;
             this.txtBoxLog.ForeColor = System.Drawing.SystemColors.Info;
-            this.txtBoxLog.Location = new System.Drawing.Point(13, 196);
+            this.txtBoxLog.Location = new System.Drawing.Point(13, 287);
             this.txtBoxLog.Multiline = true;
             this.txtBoxLog.Name = "txtBoxLog";
             this.txtBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBoxLog.Size = new System.Drawing.Size(458, 151);
+            this.txtBoxLog.Size = new System.Drawing.Size(521, 60);
             this.txtBoxLog.TabIndex = 2;
             // 
             // btnClear
@@ -173,13 +164,22 @@
             // 
             // btnShow
             // 
-            this.btnShow.Location = new System.Drawing.Point(511, 174);
+            this.btnShow.Location = new System.Drawing.Point(511, 184);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(23, 67);
             this.btnShow.TabIndex = 5;
             this.btnShow.Text = "S";
             this.btnShow.UseVisualStyleBackColor = true;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click_1);
+            // 
+            // txtBoxAnalalizador
+            // 
+            this.txtBoxAnalalizador.Location = new System.Drawing.Point(13, 28);
+            this.txtBoxAnalalizador.Multiline = true;
+            this.txtBoxAnalalizador.Name = "txtBoxAnalalizador";
+            this.txtBoxAnalalizador.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtBoxAnalalizador.Size = new System.Drawing.Size(492, 240);
+            this.txtBoxAnalalizador.TabIndex = 1;
             // 
             // Form1
             // 
@@ -214,12 +214,12 @@
         private System.Windows.Forms.ToolStripMenuItem manualTécnicoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualDeUsuarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
-        private System.Windows.Forms.TextBox txtBoxAnalalizador;
         private System.Windows.Forms.TextBox txtBoxLog;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnAnalizar;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.Button btnShow;
+        private System.Windows.Forms.TextBox txtBoxAnalalizador;
     }
 }
 

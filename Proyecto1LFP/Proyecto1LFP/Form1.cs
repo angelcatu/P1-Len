@@ -116,10 +116,7 @@ namespace Proyecto1LFP
             enviarAAnalizador();
         }
 
-        private void btnShow_Click(object sender, EventArgs e)
-        {
-            analizador.mostrarExpresiones();
-        }
+        
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -161,7 +158,8 @@ namespace Proyecto1LFP
 
         private void btnShow_Click_1(object sender, EventArgs e)
         {
-            txtBoxLog.Text = operacion.mostrarCola();
+
+            operacion.borrarCeldas();
         }
     }
 }

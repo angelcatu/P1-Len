@@ -10,22 +10,22 @@ namespace Proyecto1LFP.Modelos
     {
         private List<Celda> listaCeldas;
 
-        private int idCelda;
+        private int idCola;
 
         public Cola()
         {
 
         }
 
-        public Cola(int idCelda)
+        public Cola(int idCola)
         {
-            this.idCelda = idCelda;
+            this.idCola = idCola;
             this.listaCeldas = new List<Celda>();
         }
 
         public int getIdCelda()
         {
-            return idCelda;
+            return idCola;
         }
 
         public List<Celda> getListaCeldas()
