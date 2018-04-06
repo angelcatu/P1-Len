@@ -12,11 +12,13 @@ namespace Proyecto1LFP.Modelos
 {
     class Archivo
     {
+        private Operacion operacion = new Operacion();
 
         private List<Token> listaTokens = Analizador.listaTokens;
         private List<Token> listaErrores = Analizador.listaErrores;
-
-        private Operacion operacion;
+        private List<Operacion> listaRespuestas = Operacion.listaRespuestas;
+        
+        private Operacion op = new Operacion();
         private Grafica grafica = new Grafica();
 
         private String nombre;
@@ -36,9 +38,66 @@ namespace Proyecto1LFP.Modelos
             this.ruta = "C:/Users/ang_e/Documents/";
         }
         
-        private void crearReporteResultado()
+        public void crearReporteResultado()
         {
+            try
+            {
+                File.WriteAllText(ruta + nombre + "." + extension, reporteDeResultados());                
+                abrirDocumento(ruta, nombre, extension);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Hubo un problema al generar el html de errores");
+            }
 
+        }
+
+        private string reporteDeResultados()
+        {
+            String contenido = "<html>\n"
+                  + "<head>"
+                  + "<utf-8>"
+                  + "\n<title>REPORTE DE RESULTADOS</title>\n"
+                  + "<style>"
+                  + "body{"
+                  + "background-color: #ead48a;"
+                  + "}"
+                  + ""
+                  + "table: hover{"
+                  + "width: 50%;"
+                  + "}"
+                  + ""
+                  + "th{"
+                  + "height: 25px;"
+                  + "}"
+                  + "</style>"
+                  + ""
+                  + "</head>"
+                  + "<body align='center'>\n"
+                  + "<table border = '1' align = 'center'>"
+                  + "<caption> <h3>Reporte de expresiones </h3> </caption>"
+                  + "<tr>"
+                  + "<th> <strong>   </strong>  </th>\n"
+                  + "<th> <strong> Expresion   </strong>  </th>\n"
+                  + "<th> <strong> Respuesta   </strong>  </th>\n"                  
+                  + "</tr>";
+
+            foreach (Operacion operacion in listaRespuestas)
+            {
+                contenido += "<tr>\n"
+                        + "<td align = 'center' >" + operacion.getIdRespuesta() + "</td>\n"
+                        + "<td align = 'center' >" + operacion.getExpAritmetica() + "</td>\n"
+                        + "<td align = 'center' >" + operacion.getResultado() + "</td>\n"
+
+                        + "</tr>\n";
+            }
+
+
+            contenido += "</table>\n</body>\n</html>";
+
+
+
+            return contenido;
         }
 
         private void crearReporteTokens()
@@ -73,7 +132,7 @@ namespace Proyecto1LFP.Modelos
             try
             {
                 File.WriteAllText(@ruta + nombre + "." + extension, reporteArbol());
-                MessageBox.Show("Reporte de de árbol de expresiones");
+                MessageBox.Show("Reporte de árbol de expresiones");
 
                 abrirDocumento(ruta, nombre, extension);
             }

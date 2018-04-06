@@ -14,7 +14,7 @@ namespace Proyecto1LFP.Modelos
         private Cola cola;
         private List<Pila> listaPila = new List<Pila>();
 
-        private List<Operacion> listaRespuestas = new List<Operacion>();
+        public static List<Operacion> listaRespuestas = new List<Operacion>();
 
         private List<Expresion> listaExpresiones = Analizador.listaExpresiones;
         private List<Operacion> listaOperadoresInfo;
@@ -22,10 +22,10 @@ namespace Proyecto1LFP.Modelos
         private List<Cola> listaCola = new List<Cola>();
         private List<Celda> listaCeldas;
 
-        private int indice = 0;
+        
         private int indiceResolver = 0;
 
-
+        private int idRespuesta = 0;
         private String expAritmetica;
         private float resultado ;
         private int precedencia;
@@ -34,7 +34,7 @@ namespace Proyecto1LFP.Modelos
 
         public Operacion()
         {
-            llenarListaDeOperadores();
+            llenarListaDeOperadores();            
         }
 
         public String getExpAritmetica()
@@ -47,6 +47,17 @@ namespace Proyecto1LFP.Modelos
             return resultado;
         }
 
+        public int getIdRespuesta()
+        {
+            return idRespuesta;
+        }
+
+        public void setIdRespuesta(int idRespuesta)
+        {
+            this.idRespuesta = idRespuesta;
+        }
+
+       
         private void llenarListaDeOperadores()
         {
             listaOperadoresInfo = new List<Operacion>();
@@ -59,8 +70,9 @@ namespace Proyecto1LFP.Modelos
             listaOperadoresInfo.Add(new Operacion(3, "Agrupacion", ")"));
         }
 
-        public Operacion(String expAritmetica, float resultado)
+        public Operacion(int id, String expAritmetica, float resultado)
         {
+            this.idRespuesta = id;
             this.expAritmetica = expAritmetica;
             this.resultado = resultado;
         }
@@ -74,13 +86,7 @@ namespace Proyecto1LFP.Modelos
 
 
         private String numero;
-
-        public int getIndice()
-        {
-            return indice;
-        }
-
-
+        
         public void operarExpresion()
         {
 
@@ -88,25 +94,35 @@ namespace Proyecto1LFP.Modelos
             foreach (Expresion expresion in listaExpresiones)
             {
 
-                indice++;                               
-                cola = new Cola(indice);                
+                
+                idRespuesta++;
+                cola = new Cola(idRespuesta);                
                 listaCeldas = cola.getListaCeldas();
                 crearPostFijo(expresion.getSimbolo());
                 float respuesta = mandarAResolver();
-                String expresionAritmetica = expresion.getSimbolo();
-                agregarAListaDeRespuestas(expresionAritmetica, respuesta);
+                String expresionAritmetica = expresion.getExpresionOriginal();
+                agregarAListaDeRespuestas(idRespuesta, expresionAritmetica, respuesta);
                 
 
             }
-            mostrarRespuestas();
+
+            crearReporteDeExpresiones();
+
+            //mostrarRespuestas();
             listaRespuestas.Clear();
             listaExpresiones.Clear();
 
         }
 
-        private void agregarAListaDeRespuestas(string expresionAritmetica, float respuesta)
+        private void crearReporteDeExpresiones()
         {
-            listaRespuestas.Add(new Operacion(expresionAritmetica, respuesta));
+            Archivo archivo = new Archivo("ReporteDeExpresiones", "html");
+            archivo.crearReporteResultado();
+        }
+
+        private void agregarAListaDeRespuestas(int id, string expresionAritmetica, float respuesta)
+        {
+            listaRespuestas.Add(new Operacion(id, expresionAritmetica, respuesta));
         }
 
         private void mostrarRespuestas()

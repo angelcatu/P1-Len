@@ -10,15 +10,17 @@ namespace Proyecto1LFP.Modelos
     {
         
         private String simbolo;
+        private String expresionOriginal;
         
         public Expresion()
         {
 
         }
 
-        public Expresion(String simbolo)
+        public Expresion(String simbolo, String expresionOriginal)
         {
             this.simbolo = simbolo;
+            this.expresionOriginal = expresionOriginal;
         }
 
         public void concatenarExpresion(List<Expresion> listaExpresiones)
@@ -29,6 +31,11 @@ namespace Proyecto1LFP.Modelos
         public String getSimbolo()
         {
             return simbolo;
+        }
+
+        public String getExpresionOriginal()
+        {
+            return expresionOriginal;
         }
 
     }

@@ -95,8 +95,8 @@ namespace Proyecto1LFP
                                 
                 if(listaExpresiones.Count > 0)
                 {
-
-                    //operacion.operarExpresion();
+                    operacion.setIdRespuesta(0);
+                    operacion.operarExpresion();
                 }
 
 
