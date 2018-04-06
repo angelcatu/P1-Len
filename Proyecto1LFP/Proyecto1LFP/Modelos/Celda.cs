@@ -9,24 +9,16 @@ namespace Proyecto1LFP.Modelos
     class Celda
     {
 
-        private String valor;
-        private int precedencia;
+        private String celda;
 
-        public Celda(String valor, int precedencia)
+        public Celda(String celda)
         {
-            this.valor = valor;
-            this.precedencia = precedencia;
+            this.celda = celda;
         }
 
-
-        public String getValor()
+        public String getCelda()
         {
-            return valor;
-        }
-
-        public int getPrecedencia()
-        {
-            return precedencia;
+            return celda;
         }
     }
 }

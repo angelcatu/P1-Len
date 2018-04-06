@@ -68,6 +68,7 @@ namespace Proyecto1LFP.Modelos
 
             foreach (Expresion expresion in listaExpresiones)
             {
+
                 crearPostFijo(expresion.getSimbolo());
                 
             }
@@ -213,7 +214,7 @@ namespace Proyecto1LFP.Modelos
 
                     }
 
-                    if(listaPila.Count == 1 || listaPila[(longitud - 2)].getValor().Equals("("))
+                    if(listaPila.Count == 1 || listaPila[(listaPila.Count-2)].getValor().Equals("("))
                     {
                         break;
                     }
