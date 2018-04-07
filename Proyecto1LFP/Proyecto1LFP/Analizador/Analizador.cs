@@ -18,6 +18,7 @@ namespace Proyecto1LFP.Modelos
         private String lexema;
         private String expresion;
         private String expresionOriginal;
+        private String numero;
         private int fila = 1;
         private int columna = 0;
         private int numCaracter = 0;
@@ -113,18 +114,36 @@ namespace Proyecto1LFP.Modelos
                             estado = 2;
                             expresion += caracter[indice];
                             expresionOriginal += caracter[indice];
-                            numCaracter++;
-                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
+                            numero += caracter[indice];
+                            
 
                             // {}
                         } else if (caracter[indice] == 123 || caracter[indice] == 125)
                         {
+
+                            if(caracter[indice] == 125)
+                            {
+                                if (!numero.Equals(""))
+                                {
+                                    numCaracter++;
+                                    listaTokens.Add(new Token(numCaracter, "Tk_Numero", numero, fila, columna, ""));
+                                    numero = "";
+                                }
+                            }                            
                             numCaracter++;
                             llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
 
                             //()
                         } else if (caracter[indice] == 40 || caracter[indice] == 41)
                         {
+
+                            if (!numero.Equals(""))
+                            {
+                                numCaracter++;
+                                listaTokens.Add(new Token(numCaracter, "Tk_Numero", numero, fila, columna, ""));
+                                numero = "";
+                            }
+
                             numCaracter++;
                             expresion += caracter[indice];
                             expresionOriginal += caracter[indice];
@@ -150,8 +169,14 @@ namespace Proyecto1LFP.Modelos
                         } else if (caracter[indice] == 42 || caracter[indice] == 43 || caracter[indice] == 45 || caracter[indice] == 47)
                         {
 
-                                // *
-                            if(caracter[indice] == 42)
+                            if (!numero.Equals(""))
+                            {
+                                numCaracter++;
+                                listaTokens.Add(new Token(numCaracter, "Tk_Numero", numero, fila, columna, ""));
+                                numero = "";
+                            }
+                            // *
+                            if (caracter[indice] == 42)
                             {
                                 //Error
                                 numError++;
@@ -261,14 +286,22 @@ namespace Proyecto1LFP.Modelos
                             numCaracter++;
                             expresionOriginal += caracter[indice];
                             expresion += caracter[indice];
-                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
+                            numero += caracter[indice];
 
                         } else if (caracter[indice] == 42 || caracter[indice] == 43 || caracter[indice] == 45 || caracter[indice] == 47) {
+
+                            if (!numero.Equals(""))
+                            {
+                                numCaracter++;
+                                listaTokens.Add(new Token(numCaracter, "Tk_Numero", numero, fila, columna, ""));
+                                numero = "";
+                            }
 
                             numCaracter++;
                             expresionOriginal += caracter[indice];
                             expresion += caracter[indice];
                             llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
+
                             estado = 3;
                         }
                         else if (caracter[indice] == 10)
@@ -288,6 +321,13 @@ namespace Proyecto1LFP.Modelos
                         }else if(caracter[indice] == 40)
                         {
                             expresionOriginal += caracter[indice];
+
+                            if (!numero.Equals(""))
+                            {
+                                numCaracter++;
+                                listaTokens.Add(new Token(numCaracter, "Tk_Numero", numero, fila, columna, ""));
+                                numero = "";
+                            }
 
                             numCaracter++;
                             expresion += "*";                            
@@ -332,13 +372,19 @@ namespace Proyecto1LFP.Modelos
                                 
                             }
 
-                            expresion += caracter[indice];
-                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
+                            expresion += caracter[indice];                            
+                            numero += caracter[indice];
                             estado = 4;
 
                         } else if (caracter[indice] == 40)
                         {
                             expresionOriginal += caracter[indice];
+                            if (!numero.Equals(""))
+                            {
+                                numCaracter++;
+                                listaTokens.Add(new Token(numCaracter, "Tk_Numero", numero, fila, columna, ""));
+                                numero = "";
+                            }
 
                             if (listaTokens[listaTokens.Count-1].getToken().Equals("Tk_Numero"))
                             {
@@ -395,10 +441,18 @@ namespace Proyecto1LFP.Modelos
                             expresionOriginal += caracter[indice];
                             numCaracter++;
                             expresion += caracter[indice];
-                            llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
+                            numero += caracter[indice];
 
                         } else if (caracter[indice] == 42 || caracter[indice] == 43 || caracter[indice] == 45 || caracter[indice] == 47)
                         {
+                            if (!numero.Equals(""))
+                            {
+                                numCaracter++;
+                                listaTokens.Add(new Token(numCaracter, "Tk_Numero", numero, fila, columna, ""));
+                                numero = "";
+                            }
+
+
                             expresionOriginal += caracter[indice];
                             numCaracter++;
                             expresion += caracter[indice];
@@ -414,6 +468,14 @@ namespace Proyecto1LFP.Modelos
                         }
                         else if (caracter[indice] == 40)
                         {
+
+                            if (!numero.Equals(""))
+                            {
+                                numCaracter++;
+                                listaTokens.Add(new Token(numCaracter, "Tk_Numero", numero, fila, columna, ""));
+                                numero = "";
+                            }
+
                             expresionOriginal += caracter[indice];
                             numCaracter++;
                             expresion += "*";
@@ -1019,63 +1081,21 @@ namespace Proyecto1LFP.Modelos
                 case "->":
                     listaTokens.Add(new Token(numCaracter, "Tk_Flecha", lexema, fila, columna, "->"));
                     break;
-
-                case "0":
-
-                    listaTokens.Add(new Token(numCaracter, "Tk_Numero", lexema, fila, columna, ""));
-
-                    break;
-
-                case "1":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Numero", lexema, fila, columna, ""));
-                    break;
-
-                case "2":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Numero", lexema, fila, columna, ""));
-                    break;
-
-                case "3":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Numero", lexema, fila, columna, ""));
-                    break;
-
-                case "4":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Numero", lexema, fila, columna, ""));
-                    break;
-
-                case "5":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Numero", lexema, fila, columna, ""));
-                    break;
-
-                case "6":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Numero", lexema, fila, columna, ""));
-                    break;
-
-                case "7":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Numero", lexema, fila, columna, ""));
-                    break;
-
-                case "8":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Numero", lexema, fila, columna, ""));
-                    break;
-
-                case "9":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Numero", lexema, fila, columna, ""));
-                    break;
-
+                                
                 case "+":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Operador", lexema, fila, columna, ""));
+                    listaTokens.Add(new Token(numCaracter, "Tk_Suma", lexema, fila, columna, ""));
                     break;
 
                 case "-":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Operador", lexema, fila, columna, ""));
+                    listaTokens.Add(new Token(numCaracter, "Tk_Resta", lexema, fila, columna, ""));
                     break;
 
                 case "*":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Operador", lexema, fila, columna, ""));
+                    listaTokens.Add(new Token(numCaracter, "Tk_Multiplicacion", lexema, fila, columna, ""));
                     break;
 
                 case "/":
-                    listaTokens.Add(new Token(numCaracter, "Tk_Operador", lexema, fila, columna, ""));
+                    listaTokens.Add(new Token(numCaracter, "Tk_Division", lexema, fila, columna, ""));
                     break;
 
                 case "{":

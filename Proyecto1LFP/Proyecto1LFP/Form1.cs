@@ -27,7 +27,7 @@ namespace Proyecto1LFP
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            txtBoxAnalalizador.Text = "";            
+            txtBoxAnalizador.Text = "";            
         }
 
         private void analizarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -63,7 +63,7 @@ namespace Proyecto1LFP
 
         private void enviarAAnalizador()
         {
-            String cadena = txtBoxAnalalizador.Text;
+            String cadena = txtBoxAnalizador.Text;
 
             analizador.setColumna(0);
             analizador.setFila(1);
@@ -86,6 +86,8 @@ namespace Proyecto1LFP
                     analizador.analizarEntrada(cadena);
                 }             
             }
+
+            cambiarColor();
 
             if (listaErrores.Count == 0)
             {
@@ -114,9 +116,105 @@ namespace Proyecto1LFP
         private void btnAnalizar_Click(object sender, EventArgs e)
         {
             enviarAAnalizador();
+            
+
         }
 
-        
+        private int indiceInicioPintura = 0;
+        private int longitudTokenPintura = 0;
+
+        private void cambiarColor()
+        {
+            
+            String texto = txtBoxAnalizador.Text;
+            String concatenacion = "";
+
+            for (int inicio = 0; inicio < texto.Length; inicio++)
+            {
+                concatenacion += texto[inicio];
+
+                if(indiceInicioPintura > 0)
+                {
+                    this.indiceInicioPintura = inicio;
+                }
+                
+                for (int indiceToken = 0; indiceToken < listaTokens.Count; indiceToken++)
+                {
+                    if (concatenacion.Equals(listaTokens[indiceToken].getLexema()))
+                    {
+
+                        if (concatenacion.Equals(";"))
+                        {
+
+                        }
+
+                        pintar(this.indiceInicioPintura, (concatenacion.Length-1+this.indiceInicioPintura), indiceToken);
+                        this.indiceInicioPintura = inicio;
+                        concatenacion = "";
+
+                    }
+                    else
+                    {
+                        
+                    }
+
+                    
+                }                
+            }                                                      
+        }
+
+        private void pintar(int indiceInicioPintura, int length, int indiceToken)
+        {
+
+            txtBoxAnalizador.SelectionStart = indiceInicioPintura;
+            txtBoxAnalizador.SelectionLength = length;
+
+            switch (listaTokens[indiceToken].getToken())
+            {
+                
+                case "Tk_Numero":
+
+                    txtBoxAnalizador.SelectionColor = Color.Blue;
+
+                    break;
+                
+                case "Tk_Suma":
+                    txtBoxAnalizador.SelectionColor = Color.Purple;
+                    break;
+
+                case "Tk_Resta":
+                    txtBoxAnalizador.SelectionColor = Color.Gray;
+                    break;
+
+                case "Tk_Multiplicacion":
+                    txtBoxAnalizador.SelectionColor = Color.Orange;
+                    break;
+
+                case "Tk_Division":
+                    txtBoxAnalizador.SelectionColor = Color.LightBlue;
+                    break;
+
+                case "Tk_Etiqueta":
+                    txtBoxAnalizador.SelectionColor = Color.Green;
+                    break;
+
+                case "Tk_IdentificadorDestino":
+                    txtBoxAnalizador.SelectionColor = Color.Red;
+                    break;
+
+                case "Tk_IdentificadorOrigen":
+                    txtBoxAnalizador.SelectionColor = Color.Red;
+                    break;
+
+                case "Tk_Identificador":
+                    txtBoxAnalizador.SelectionColor = Color.Red;
+                    break;
+
+                default:
+                    txtBoxAnalizador.SelectionColor = Color.Black;
+                    break;
+            }
+        }        
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -125,7 +223,7 @@ namespace Proyecto1LFP
 
         private void abrirArchivo()
         {
-            txtBoxAnalalizador.Text = "";
+            txtBoxAnalizador.Text = "";
             String texto;
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Abrir archivo";
@@ -136,7 +234,7 @@ namespace Proyecto1LFP
                 if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     texto = System.IO.File.ReadAllText(ofd.FileName);
-                    this.txtBoxAnalalizador.Text = texto;
+                    this.txtBoxAnalizador.Text = texto;
                 }
             }
             catch (Exception e)
