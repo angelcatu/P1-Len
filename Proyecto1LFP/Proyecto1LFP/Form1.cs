@@ -135,7 +135,7 @@ namespace Proyecto1LFP
 
                 if(indiceInicioPintura > 0)
                 {
-                    this.indiceInicioPintura = inicio;
+                 //   this.indiceInicioPintura = inicio;
                 }
                 
                 for (int indiceToken = 0; indiceToken < listaTokens.Count; indiceToken++)
@@ -143,14 +143,17 @@ namespace Proyecto1LFP
                     if (concatenacion.Equals(listaTokens[indiceToken].getLexema()))
                     {
 
-                        if (concatenacion.Equals(";"))
+                        if (concatenacion.Equals("{"))
                         {
 
                         }
 
-                        pintar(this.indiceInicioPintura, (concatenacion.Length-1+this.indiceInicioPintura), indiceToken);
-                        this.indiceInicioPintura = inicio;
+                        //int inicioAux  =  inicio - this.indiceInicioPintura + 1;
+
+                        pintar(this.indiceInicioPintura, (inicio), indiceToken);
+                        this.indiceInicioPintura = inicio + 1;
                         concatenacion = "";
+                        indiceToken = listaTokens.Count;
 
                     }
                     else
