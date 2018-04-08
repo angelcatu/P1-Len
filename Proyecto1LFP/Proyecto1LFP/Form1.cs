@@ -32,9 +32,14 @@ namespace Proyecto1LFP
 
         private void analizarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            enviarAAnalizador();
-                        
+            try
+            {
+                enviarAAnalizador();
+            }
+            catch(Exception l)
+            {
+                MessageBox.Show("Ocurrió un problema en la ejecución, algo está mal escrito", "Error");
+            }                                    
         }
 
         private void generarReporteErrores()
@@ -146,12 +151,7 @@ namespace Proyecto1LFP
             for (int inicio = 0; inicio < texto.Length; inicio++)
             {
                 concatenacion += texto[inicio];
-
-                if (concatenacion.Equals("}"))
-                {
-
-                }
-
+                
                 if (concatenacion.Equals("\n"))
                 {
                     concatenacion = "";
@@ -181,9 +181,24 @@ namespace Proyecto1LFP
                     this.indiceInicioPintura = inicio + 1;
                     concatenacion = "";
                     indiceToken++;
+                    inicio = esFinalDeTexto(inicio, texto.Length);
+
+                    
                 }                                                                                           
             }                                                      
         }
+
+        private int esFinalDeTexto(int inicio, int texto)
+        {
+            if (indiceToken == listaTokens.Count - 1)
+            {
+                inicio = texto;
+            }
+
+
+            return inicio;
+        }
+        
 
         private void pintar(int indiceInicioPintura, int length, int indiceToken)
         {
@@ -236,7 +251,7 @@ namespace Proyecto1LFP
                     txtBoxAnalizador.SelectionColor = Color.Black;
                     break;
             }
-        }        
+        }     
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
