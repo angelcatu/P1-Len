@@ -288,7 +288,7 @@ namespace Proyecto1LFP.Modelos
                         {
                             float asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());                            
                             float asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
-
+                            
                             resultado = resolver(asoIzq, "-", asoDer, indice);
                         }
                         catch (Exception e)

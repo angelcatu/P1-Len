@@ -16,8 +16,8 @@ namespace Proyecto1LFP.Modelos
         private int estado = 0;
         private int indice = 0;        
         private String lexema;
-        private String expresion;
-        private String expresionOriginal;
+        private String expresion = "";
+        private String expresionOriginal = "";
         private String numero;
         private int fila = 1;
         private int columna = 0;
@@ -154,7 +154,13 @@ namespace Proyecto1LFP.Modelos
                         {
                             numCaracter++;
                             llenarListaTokens(numCaracter, caracter[indice].ToString(), fila, columna);
-                            llenarListaExpresiones(expresion, expresionOriginal);
+
+
+                            if(!expresion.Equals("") && !expresionOriginal.Equals(""))
+                            {
+                                llenarListaExpresiones(expresion, expresionOriginal);
+                            }
+                            
 
                             if (lexema.Length > 0)
                             {
@@ -1054,7 +1060,7 @@ namespace Proyecto1LFP.Modelos
                     break;
 
                 case "Graficar":                    
-                    listaTokens.Add(new Token(numCaracter, "Tk_Graficar", lexema, fila, columna, " digraph G{graph[rankdir = \"TB\"];"));
+                    listaTokens.Add(new Token(numCaracter, "Tk_Graficar", lexema, fila, columna, " digraph G{graph[rankdir = \"TB\"]; node[fontsize = \"16\" shape = \"ellipse\"];"));
                     break;
 
                 case "Node":
@@ -1099,7 +1105,7 @@ namespace Proyecto1LFP.Modelos
                     break;
 
                 case "{":
-                    listaTokens.Add(new Token(numCaracter, "Tk_LlaveAbierta", lexema, fila, columna, "node[fontsize = \"16\" shape = \"ellipse\"];"));
+                    listaTokens.Add(new Token(numCaracter, "Tk_LlaveAbierta", lexema, fila, columna, ""));
                     
                     break;
 

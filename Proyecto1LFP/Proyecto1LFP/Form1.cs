@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace Proyecto1LFP
 {
@@ -19,6 +21,7 @@ namespace Proyecto1LFP
         private List<Token> listaTokens = Analizador.listaTokens;
         private List<Token> listaErrores = Analizador.listaErrores;
         private List<Expresion> listaExpresiones = Analizador.listaExpresiones;
+        private List<String> listaGraficas = Grafica.listaDeGraficas;
 
         public Form1()
         {
@@ -27,7 +30,7 @@ namespace Proyecto1LFP
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            txtBoxAnalizador.Text = "";            
+            txtBoxAnalizador.Text = "";
         }
 
         private void analizarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -36,10 +39,10 @@ namespace Proyecto1LFP
             {
                 enviarAAnalizador();
             }
-            catch(Exception l)
+            catch (Exception l)
             {
                 MessageBox.Show("Ocurrió un problema en la ejecución, algo está mal escrito", "Error");
-            }                                    
+            }
         }
 
         private void generarReporteErrores()
@@ -51,7 +54,7 @@ namespace Proyecto1LFP
         private void generarReporteDeTokens()
         {
             Archivo archivo = new Archivo("ReporteTokens", "html");
-            archivo.createHTML();            
+            archivo.createHTML();
         }
 
         private void generarImagenArbol()
@@ -78,13 +81,13 @@ namespace Proyecto1LFP
             setIndiceInicioPintura(0);
             setIndiceToken(0);
 
-            if(cadena.Length > 0)
+            if (cadena.Length > 0)
             {
-                analizador.analizarEntrada(cadena);                
+                analizador.analizarEntrada(cadena);
             }
             else
             {
-                if(listaTokens != null)
+                if (listaTokens != null)
                 {
                     listaTokens.Clear();
                     analizador.analizarEntrada(cadena);
@@ -92,18 +95,23 @@ namespace Proyecto1LFP
                 else
                 {
                     analizador.analizarEntrada(cadena);
-                }             
+                }
             }
 
             cambiarColor();
 
             if (listaErrores.Count == 0)
             {
-                //generarReporteDeTokens();
+                generarReporteDeTokens();
+
                 generarImagenArbol();
-                //generarArbol();
-                                
-                if(listaExpresiones.Count > 0)
+                //generarArbol();                
+
+
+
+
+
+                if (listaExpresiones.Count > 0)
                 {
                     operacion.setIdRespuesta(0);
                     operacion.operarExpresion();
@@ -111,6 +119,7 @@ namespace Proyecto1LFP
 
 
                 listaTokens.Clear();
+                listaGraficas.Clear();
 
             }
             else
@@ -125,7 +134,7 @@ namespace Proyecto1LFP
         private void btnAnalizar_Click(object sender, EventArgs e)
         {
             enviarAAnalizador();
-            
+
 
         }
 
@@ -145,14 +154,14 @@ namespace Proyecto1LFP
 
         private void cambiarColor()
         {
-            
+
             String texto = txtBoxAnalizador.Text;
             String concatenacion = "";
 
             for (int inicio = 0; inicio < texto.Length; inicio++)
             {
                 concatenacion += texto[inicio];
-                
+
                 if (concatenacion.Equals("\n"))
                 {
                     concatenacion = "";
@@ -184,9 +193,9 @@ namespace Proyecto1LFP
                     indiceToken++;
                     inicio = esFinalDeTexto(inicio, texto.Length);
 
-                    
-                }                                                                                           
-            }                                                      
+
+                }
+            }
         }
 
         private int esFinalDeTexto(int inicio, int texto)
@@ -199,7 +208,7 @@ namespace Proyecto1LFP
 
             return inicio;
         }
-        
+
 
         private void pintar(int indiceInicioPintura, int length, int indiceToken)
         {
@@ -209,13 +218,13 @@ namespace Proyecto1LFP
 
             switch (listaTokens[indiceToken].getToken())
             {
-                
+
                 case "Tk_Numero":
 
                     txtBoxAnalizador.SelectionColor = Color.Blue;
 
                     break;
-                
+
                 case "Tk_Suma":
                     txtBoxAnalizador.SelectionColor = Color.Purple;
                     break;
@@ -252,7 +261,7 @@ namespace Proyecto1LFP
                     txtBoxAnalizador.SelectionColor = Color.Black;
                     break;
             }
-        }     
+        }
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -295,6 +304,17 @@ namespace Proyecto1LFP
         private void button1_Click(object sender, EventArgs e)
         {
             analizador.mostrarExpresiones();
+        }
+
+        private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            guardarArchivo();
+        }
+
+        private void guardarArchivo()
+        {
+            
+            
         }
     }
 }

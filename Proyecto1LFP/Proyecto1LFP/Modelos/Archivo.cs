@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,7 +31,7 @@ namespace Proyecto1LFP.Modelos
 
         public Archivo()
         {
-            this.ruta = "C:/Users/ang_e/Documents/";
+            this.ruta = "C:\\Users\\ang_e\\Documents\\";
         }
 
         public Archivo(String nombre, String extension)
@@ -124,9 +126,21 @@ namespace Proyecto1LFP.Modelos
         public void generarImagenDeDot()
         {
             grafica.generarCodigo();
-            generarDOT();            
-            //generarImagen("grafo.dot", @"~Proyecto1LFP/Imagenes/");            
+            generarDOT();
+
+            //String ruta = Path.Combine(Application.StartupPath, "Imagenes\\");
+
+            //String ruta = "C:\\Users\\ang_e\\Documents\\Imagenes\\";
+            //String ruta = "\\Grafos\\";
             
+            if(listaGraficasCod.Count > 0)
+            {
+                for (int i = 0; i < listaGraficasCod.Count; i++)
+                {
+
+                    generarImagen("grafo" + i + ".dot", ruta);
+                }
+            }                                  
         }
 
         public void generarReporteDeArbolHTMl()
@@ -179,6 +193,8 @@ namespace Proyecto1LFP.Modelos
 
         private void generarImagen(string nombre, string ruta )
         {
+
+            
             try
             {
                 var command = string.Format("dot -Tpng {0} -o {1}", Path.Combine(ruta, nombre), Path.Combine(ruta, nombre.Replace(".dot", ".png")));
@@ -193,7 +209,7 @@ namespace Proyecto1LFP.Modelos
 
                 proc.WaitForExit();
 
-                MessageBox.Show("Imagen creada sin problemas", "Información");
+                //MessageBox.Show("Imagen creada sin problemas", "Información");
 
             }
             catch(Exception e)
@@ -236,12 +252,14 @@ namespace Proyecto1LFP.Modelos
                     {
                         sw = new StreamWriter(@ruta + "grafo" + i + ".dot");
                         sw.WriteLine(listaGraficasCod[i]);
+
+                        //Close the file
+                        sw.Close();
                     }
                     
                 }
                 
-                //Close the file
-                sw.Close();
+                
             }
             catch (Exception e)
             {

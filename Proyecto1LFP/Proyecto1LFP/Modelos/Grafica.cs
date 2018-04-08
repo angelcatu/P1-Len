@@ -38,6 +38,12 @@ namespace Proyecto1LFP.Modelos
                             {
                                 codigoGraphviz += listaTokens[i].getCodigoGraphviz();
                             }
+                        }else if (listaTokens[i].getLexema().Equals("}"))
+                        {
+                            if (listaTokens[i - 1].getLexema().Equals(";"))
+                            {
+                                codigoGraphviz += listaTokens[i].getCodigoGraphviz();
+                            }
                         }
                         else
                         {
