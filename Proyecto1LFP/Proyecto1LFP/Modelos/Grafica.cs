@@ -11,30 +11,51 @@ namespace Proyecto1LFP.Modelos
     {
 
         private List<Token> listaTokens = Analizador.listaTokens;
+        public static List<String> listaDeGraficas = new List<string>();
 
-        public Image generarArbolDeExpresiones()
-        {
-            Image image = null;
-
-            
-
-            return image;
-        } 
-
-
-        public String generarCodigo()
+        public void generarCodigo()
         {
             String codigoGraphviz = "";
 
-            foreach (Token token in listaTokens)
+            try
             {
+                for (int i = 0; i < listaTokens.Count; i++)
+                {
+                    if (!listaTokens[i].getCodigoGraphviz().Equals(""))
+                    {
 
-                if (!token.getCodigoGraphviz().Equals("")){
-                    codigoGraphviz += token.getCodigoGraphviz();
-                }                
+                        if (listaTokens[i].getLexema().Equals(";"))
+                        {
+                            if (listaTokens[i - 1].getLexema().Equals("}"))
+                            {
+                                if (!codigoGraphviz.Equals(""))
+                                {
+                                    agregarGraficasCod(codigoGraphviz);
+                                    codigoGraphviz = "";
+                                }
+                            }
+                            else
+                            {
+                                codigoGraphviz += listaTokens[i].getCodigoGraphviz();
+                            }
+                        }
+                        else
+                        {
+                            codigoGraphviz += listaTokens[i].getCodigoGraphviz();
+                        }
+                        
+                    }                    
+                }
             }
+            catch(Exception e)
+            {
+                
+            }                     
+        }
 
-            return codigoGraphviz;
+        private void agregarGraficasCod(String codigoGraphviz)
+        {
+            listaDeGraficas.Add(codigoGraphviz);
         }
 
     }

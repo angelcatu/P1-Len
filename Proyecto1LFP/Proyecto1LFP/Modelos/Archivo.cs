@@ -17,7 +17,8 @@ namespace Proyecto1LFP.Modelos
         private List<Token> listaTokens = Analizador.listaTokens;
         private List<Token> listaErrores = Analizador.listaErrores;
         private List<Operacion> listaRespuestas = Operacion.listaRespuestas;
-        
+        private List<String> listaGraficasCod = Grafica.listaDeGraficas;
+
         private Operacion op = new Operacion();
         private Grafica grafica = new Grafica();
 
@@ -47,7 +48,7 @@ namespace Proyecto1LFP.Modelos
             }
             catch (Exception e)
             {
-                MessageBox.Show("Hubo un problema al generar el html de errores");
+                MessageBox.Show("Hubo un problema al generar el html de resultados");
             }
 
         }
@@ -122,8 +123,9 @@ namespace Proyecto1LFP.Modelos
      
         public void generarImagenDeDot()
         {
-            generarDOT();
-            generarImagen("grafo.dot", this.ruta);            
+            grafica.generarCodigo();
+            generarDOT();            
+            //generarImagen("grafo.dot", @"~Proyecto1LFP/Imagenes/");            
             
         }
 
@@ -190,20 +192,17 @@ namespace Proyecto1LFP.Modelos
                 proc.Start();
 
                 proc.WaitForExit();
-                
-            }catch(Exception e)
-            {
 
+                MessageBox.Show("Imagen creada sin problemas", "Información");
+
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
 
         }
-
-        public Image captarImagen(object sender, PaintEventArgs e)
-        {
-            Image image = Image.FromFile(ruta + nombre + ".png");
-            return image;
-        }
-
+        
         public void createHTML()
         {            
             
@@ -220,18 +219,25 @@ namespace Proyecto1LFP.Modelos
             }
         }
 
+        private int numArbol = 0;
+
         private void generarDOT()
         {
             try
             {
 
                 //Pass the filepath and filename to the StreamWriter Constructor
-                StreamWriter sw = new StreamWriter(@ruta+"grafo.dot");
+                StreamWriter sw = null;
 
                 //Write a line of text
-                if(grafica.generarCodigo().Length > 0)
+                if (listaGraficasCod.Count > 0)
                 {
-                    sw.WriteLine(grafica.generarCodigo());
+                    for (int i = 0; i < listaGraficasCod.Count; i++)
+                    {
+                        sw = new StreamWriter(@ruta + "grafo" + i + ".dot");
+                        sw.WriteLine(listaGraficasCod[i]);
+                    }
+                    
                 }
                 
                 //Close the file

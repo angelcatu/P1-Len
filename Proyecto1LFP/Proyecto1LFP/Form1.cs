@@ -99,8 +99,8 @@ namespace Proyecto1LFP
 
             if (listaErrores.Count == 0)
             {
-                generarReporteDeTokens();
-                //generarImagenArbol();
+                //generarReporteDeTokens();
+                generarImagenArbol();
                 //generarArbol();
                                 
                 if(listaExpresiones.Count > 0)
@@ -117,6 +117,7 @@ namespace Proyecto1LFP
             {
                 generarReporteErrores();
                 listaErrores.Clear();
+                listaTokens.Clear();
             }
 
         }

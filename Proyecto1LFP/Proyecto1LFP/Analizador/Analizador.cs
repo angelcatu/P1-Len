@@ -1126,16 +1126,16 @@ namespace Proyecto1LFP.Modelos
                 case ";":
 
                     int tamaño = listaTokens.Count();
-                    
+                    listaTokens.Add(new Token(numCaracter, "Tk_PuntoYComa", lexema, fila, columna, ";"));
 
-                    if (listaTokens[tamaño-1].getLexema().Equals("}"))
-                    {
-                        listaTokens.Add(new Token(numCaracter, "Tk_PuntoYComa", lexema, fila, columna, ""));
-                    }
-                    else
-                    {
-                        listaTokens.Add(new Token(numCaracter, "Tk_PuntoYComa", lexema, fila, columna, ";"));
-                    }
+                    //if (listaTokens[tamaño-1].getLexema().Equals("}"))
+                    //{
+                    //    listaTokens.Add(new Token(numCaracter, "Tk_PuntoYComa", lexema, fila, columna, ""));
+                    //}
+                    //else
+                    //{
+                    //    listaTokens.Add(new Token(numCaracter, "Tk_PuntoYComa", lexema, fila, columna, ";"));
+                    //}
 
                     break;                
 
