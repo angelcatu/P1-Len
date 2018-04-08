@@ -94,16 +94,21 @@ namespace Proyecto1LFP.Modelos
             foreach (Expresion expresion in listaExpresiones)
             {
 
-                
-                idRespuesta++;
-                cola = new Cola(idRespuesta);                
-                listaCeldas = cola.getListaCeldas();
-                crearPostFijo(expresion.getSimbolo());
-                float respuesta = mandarAResolver();
-                String expresionAritmetica = expresion.getExpresionOriginal();
-                agregarAListaDeRespuestas(idRespuesta, expresionAritmetica, respuesta);
-                
 
+                try
+                {
+                    idRespuesta++;
+                    cola = new Cola(idRespuesta);
+                    listaCeldas = cola.getListaCeldas();
+                    crearPostFijo(expresion.getSimbolo());
+                    float respuesta = mandarAResolver();
+                    String expresionAritmetica = expresion.getExpresionOriginal();
+                    agregarAListaDeRespuestas(idRespuesta, expresionAritmetica, respuesta);
+                }
+                catch(Exception e)
+                {
+
+                }                                
             }
 
             crearReporteDeExpresiones();

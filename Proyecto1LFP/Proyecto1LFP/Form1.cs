@@ -70,6 +70,9 @@ namespace Proyecto1LFP
             analizador.setNumCaracter(0);
             analizador.setNumError(0);
 
+            setIndiceInicioPintura(0);
+            setIndiceToken(0);
+
             if(cadena.Length > 0)
             {
                 analizador.analizarEntrada(cadena);                
@@ -91,7 +94,7 @@ namespace Proyecto1LFP
 
             if (listaErrores.Count == 0)
             {
-                //generarReporteDeTokens();
+                generarReporteDeTokens();
                 //generarImagenArbol();
                 //generarArbol();
                                 
@@ -121,7 +124,18 @@ namespace Proyecto1LFP
         }
 
         private int indiceInicioPintura = 0;
-        private int longitudTokenPintura = 0;
+        private int indiceToken = 0;
+
+        public void setIndiceToken(int incideInicio)
+        {
+            this.indiceToken = incideInicio;
+        }
+
+        public void setIndiceInicioPintura(int indiceInicioPintura)
+        {
+            this.indiceInicioPintura = indiceInicioPintura;
+        }
+
 
         private void cambiarColor()
         {
@@ -133,36 +147,41 @@ namespace Proyecto1LFP
             {
                 concatenacion += texto[inicio];
 
-                if(indiceInicioPintura > 0)
+                if (concatenacion.Equals("}"))
                 {
-                 //   this.indiceInicioPintura = inicio;
+
                 }
-                
-                for (int indiceToken = 0; indiceToken < listaTokens.Count; indiceToken++)
+
+                if (concatenacion.Equals("\n"))
                 {
-                    if (concatenacion.Equals(listaTokens[indiceToken].getLexema()))
-                    {
-
-                        if (concatenacion.Equals("{"))
-                        {
-
-                        }
-
-                        //int inicioAux  =  inicio - this.indiceInicioPintura + 1;
-
-                        pintar(this.indiceInicioPintura, (inicio), indiceToken);
-                        this.indiceInicioPintura = inicio + 1;
-                        concatenacion = "";
-                        indiceToken = listaTokens.Count;
-
-                    }
-                    else
-                    {
-                        
-                    }
-
-                    
-                }                
+                    concatenacion = "";
+                    this.indiceInicioPintura = inicio + 1;
+                }
+                else if (concatenacion.Equals("\t"))
+                {
+                    concatenacion = "";
+                    this.indiceInicioPintura = inicio + 1;
+                }
+                else if (concatenacion.Equals(" "))
+                {
+                    concatenacion = "";
+                    this.indiceInicioPintura = inicio + 1;
+                }
+                else if (concatenacion.Equals("\""))
+                {
+                    txtBoxAnalizador.SelectionStart = indiceInicioPintura;
+                    txtBoxAnalizador.SelectionLength = inicio;
+                    txtBoxAnalizador.SelectionColor = Color.Green;
+                    concatenacion = "";
+                    this.indiceInicioPintura = inicio + 1;
+                }
+                else if (concatenacion.Equals(listaTokens[indiceToken].getLexema()))
+                {
+                    pintar(this.indiceInicioPintura, (inicio), indiceToken);
+                    this.indiceInicioPintura = inicio + 1;
+                    concatenacion = "";
+                    indiceToken++;
+                }                                                                                           
             }                                                      
         }
 
