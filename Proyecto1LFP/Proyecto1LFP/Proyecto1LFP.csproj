@@ -67,6 +67,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Analizador\Analizador.cs" />
+    <Compile Include="Message\Envio.cs" />
+    <Compile Include="Message\Mensaje.cs" />
     <Compile Include="Modelos\Archivo.cs" />
     <Compile Include="Modelos\Celda.cs" />
     <Compile Include="Modelos\Cola.cs" />

@@ -1,4 +1,5 @@
 ﻿using Proyecto1LFP.Modelos;
+using Proyecto1LFP.Message;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,17 +14,21 @@ using System.Windows.Forms;
 
 namespace Proyecto1LFP
 {
-    public partial class Form1 : Form
+    public partial class Calculadora : Form
     {
 
         private Analizador analizador = new Analizador();
         private Operacion operacion = new Operacion();
+        private Envio envio = new Envio();
+        private Mensaje mensaje = Envio.mensaje;
         private List<Token> listaTokens = Analizador.listaTokens;
         private List<Token> listaErrores = Analizador.listaErrores;
         private List<Expresion> listaExpresiones = Analizador.listaExpresiones;
         private List<String> listaGraficas = Grafica.listaDeGraficas;
 
-        public Form1()
+        private String mensajes = "";
+                
+        public Calculadora()
         {
             InitializeComponent();
         }
@@ -65,8 +70,8 @@ namespace Proyecto1LFP
 
         private void generarArbol()
         {
-            Archivo archivo = new Archivo("ReporteArbol", "html");
-            archivo.generarReporteDeArbolHTMl();
+            //Archivo archivo = new Archivo("ReporteArbol", "html");
+            //archivo.generarReporteDeArbolHTMl();
         }
 
         private void enviarAAnalizador()
@@ -103,18 +108,17 @@ namespace Proyecto1LFP
             if (listaErrores.Count == 0)
             {
                 generarReporteDeTokens();
-
+                log();
                 generarImagenArbol();
+                log();
                 //generarArbol();                
-
-
-
-
 
                 if (listaExpresiones.Count > 0)
                 {
                     operacion.setIdRespuesta(0);
                     operacion.operarExpresion();
+                    log();
+                    
                 }
 
 
@@ -125,10 +129,53 @@ namespace Proyecto1LFP
             else
             {
                 generarReporteErrores();
+
+                log();
+
+                for (int i = 0; i < listaErrores.Count; i++)
+                {
+                    String envio = "Error: "+listaErrores[i].getLexema() + ", Línea: " + listaErrores[i].getFila() +
+                        ", Columna: " + listaErrores[i].getColumna();
+
+                    mensaje.setMensaje(envio);
+                    log();
+                }
+
                 listaErrores.Clear();
                 listaTokens.Clear();
             }
 
+        }
+
+        public void log()
+        {
+
+            if(txtBoxLog.Text.Length > 0)
+            {
+                mensajes = envio.enviarMensaje();
+
+                if(mensajes.Length > 0)
+                {
+                    mensajes = string.Format(envio.enviarMensaje(), Environment.NewLine);
+                    txtBoxLog.Text += mensajes + Environment.NewLine;
+                    envio.borrarMensaje();
+                }
+                
+                
+            }
+            else
+            {
+                mensajes = envio.enviarMensaje();
+                if(mensajes.Length > 0)
+                {
+                    mensajes = string.Format(envio.enviarMensaje(), Environment.NewLine);
+                    txtBoxLog.Text += mensajes + Environment.NewLine;
+                    envio.borrarMensaje();
+                }
+                            
+            }
+
+            
         }
 
         private void btnAnalizar_Click(object sender, EventArgs e)
@@ -314,7 +361,31 @@ namespace Proyecto1LFP
         private void guardarArchivo()
         {
             
-            
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            if (sfd.CheckFileExists)
+            {
+                File.WriteAllText(sfd.FileName, txtBoxAnalizador.Text);
+            }
+            else
+            {
+                sfd.Filter = "Archivos lf (*.lf)|*.lf";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllText(sfd.FileName, txtBoxAnalizador.Text);
+                }
+            }                        
+        }
+
+    
+
+        private void acercaDeToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            String acercaDe = "Proyecto 1 Lengujes Formales de Programación " + Environment.NewLine +
+                "Angel Manuel Elias Catú " + Environment.NewLine +
+                "201403982";
+
+            MessageBox.Show(acercaDe);
         }
     }
 }

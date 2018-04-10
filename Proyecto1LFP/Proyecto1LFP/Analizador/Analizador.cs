@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto1LFP.Message;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace Proyecto1LFP.Modelos
 {
-    class Analizador
+    class Analizador 
     {
+        private Mensaje mensajeClase = new Mensaje();
 
         public static List<Token> listaTokens = new List<Token>();
         public static List<Token> listaErrores = new List<Token>();
         public static List<Expresion> listaExpresiones = new List<Expresion>();
+
+        private String mensaje;
 
         private int estado = 0;
         private int indice = 0;        
@@ -44,7 +48,15 @@ namespace Proyecto1LFP.Modelos
             this.numError = numError;
         }
 
+        public void setMensaje(String mensaje)
+        {
+            this.mensaje = mensaje;
+        }
 
+        public String getMensaje()
+        {
+            return mensaje;
+        }
 
         public void analizarEntrada(String cadena)
         {
@@ -158,7 +170,7 @@ namespace Proyecto1LFP.Modelos
 
                             if(!expresion.Equals("") && !expresionOriginal.Equals(""))
                             {
-                                llenarListaExpresiones(expresion, expresionOriginal);
+                                llenarListaExpresiones(expresion, expresionOriginal);                                
                             }
                             
 
@@ -1045,6 +1057,14 @@ namespace Proyecto1LFP.Modelos
 
                 }
             }
+
+            if(listaTokens.Count > 0)
+            {
+                mensaje = "Lista de tokens creada";
+                mensajeClase.setMensaje(mensaje);
+            }
+            
+
             
 
         }
@@ -1168,6 +1188,6 @@ namespace Proyecto1LFP.Modelos
 
             listaExpresiones.Clear();
         }
-
+        
     }
 }

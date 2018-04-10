@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto1LFP.Message;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace Proyecto1LFP.Modelos
     {
 
         private Expresion expresion = new Expresion();
+        private Mensaje mensaje = Envio.mensaje;
         private Cola cola;
         private List<Pila> listaPila = new List<Pila>();
 
@@ -103,7 +105,11 @@ namespace Proyecto1LFP.Modelos
                     crearPostFijo(expresion.getSimbolo());
                     float respuesta = mandarAResolver();
                     String expresionAritmetica = expresion.getExpresionOriginal();
-                    agregarAListaDeRespuestas(idRespuesta, expresionAritmetica, respuesta);
+                    if(respuesta != 0.0)
+                    {
+                        agregarAListaDeRespuestas(idRespuesta, expresionAritmetica, respuesta);
+                    }
+                    
                 }
                 catch(Exception e)
                 {
@@ -276,7 +282,7 @@ namespace Proyecto1LFP.Modelos
                         }
                         catch (Exception e)
                         {
-                            MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
+                            //MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
                         }
 
 
@@ -293,7 +299,7 @@ namespace Proyecto1LFP.Modelos
                         }
                         catch (Exception e)
                         {
-                            MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
+                            //MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
                         }
 
                         break;
@@ -309,7 +315,7 @@ namespace Proyecto1LFP.Modelos
                         }
                         catch (Exception e)
                         {
-                            MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
+                            //MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
                         }
 
                         break;
@@ -325,7 +331,7 @@ namespace Proyecto1LFP.Modelos
                         }
                         catch (Exception e)
                         {
-                            MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
+                            //MessageBox.Show("Error: no se puede transformar el valor de string a int o hay un paréntesis sin cerrar ");
                         }
 
                         break;
@@ -372,6 +378,7 @@ namespace Proyecto1LFP.Modelos
             {
                 resultado = Int32.Parse(listaCeldas[0].getCelda());
                 indiceResolver = listaCeldas.Count;
+                mensaje.setMensaje("Expresión aritmética resuelta");
             }
             else
             {

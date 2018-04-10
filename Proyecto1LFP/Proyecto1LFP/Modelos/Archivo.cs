@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto1LFP.Message;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -15,6 +16,7 @@ namespace Proyecto1LFP.Modelos
     class Archivo
     {
         private Operacion operacion = new Operacion();
+        private Mensaje mensaje = Envio.mensaje;
 
         private List<Token> listaTokens = Analizador.listaTokens;
         private List<Token> listaErrores = Analizador.listaErrores;
@@ -45,12 +47,20 @@ namespace Proyecto1LFP.Modelos
         {
             try
             {
-                File.WriteAllText(ruta + nombre + "." + extension, reporteDeResultados());                
-                abrirDocumento(ruta, nombre, extension);
+                if(listaRespuestas.Count > 0)
+                {
+                    File.WriteAllText(ruta + nombre + "." + extension, reporteDeResultados());
+                    mensaje.setMensaje("Archivo de expresiones aritméticas creado");
+                    abrirDocumento(ruta, nombre, extension);
+                }
+                else
+                {
+                    mensaje.setMensaje("Error de sintáxis");
+                }                
             }
             catch (Exception e)
             {
-                MessageBox.Show("Hubo un problema al generar el html de resultados");
+                mensaje.setMensaje("Hubo un problema al generar el html de resultados");
             }
 
         }
@@ -102,23 +112,18 @@ namespace Proyecto1LFP.Modelos
 
             return contenido;
         }
-
-        private void crearReporteTokens()
-        {
-
-        }
-
+     
         public void crearReporteErrores()
         {
             try
             {
                 File.WriteAllText(ruta+nombre+"."+extension, reporteDeErrores());
-                MessageBox.Show("Existen errores en la consola");
+                mensaje.setMensaje("Existen errores en la el texto");
                 abrirDocumento(ruta, nombre, extension);
             }
             catch(Exception e)
             {
-                MessageBox.Show("Hubo un problema al generar el html de errores");
+                mensaje.setMensaje("Hubo un problema al generar el html de errores");
             }
 
         }
@@ -131,37 +136,51 @@ namespace Proyecto1LFP.Modelos
             //String ruta = Path.Combine(Application.StartupPath, "Imagenes\\");
 
             //String ruta = "C:\\Users\\ang_e\\Documents\\Imagenes\\";
-            //String ruta = "\\Grafos\\";
+            String ruta = "Grafos\\";
+            //String imagen = "..\\..\\Modelos\\Imagenes\\";
+            String imagen = Path.Combine(Application.StartupPath, ruta);
+
             
-            if(listaGraficasCod.Count > 0)
+
+            if (listaGraficasCod.Count > 0)
             {
                 for (int i = 0; i < listaGraficasCod.Count; i++)
                 {
 
-                    generarImagen("grafo" + i + ".dot", ruta);
+                    //generarImagen("grafo" + i + ".dot", ruta);
+                    //generarImagen("grafo"+i+".dot", "~/Modelos/Imagenes/");
+                    generarImagen("grafo"+i+".dot", imagen);
+                    abrirDocumento(imagen, "grafo"+i+".png", "");
+                    //generarReporteDeArbolHTMl("ReporteArbol", "html", this.ruta, "grafo" + i + ".png");
                 }
+
+                mensaje.setMensaje("Grafo creado");
             }                                  
         }
 
-        public void generarReporteDeArbolHTMl()
+        public void generarReporteDeArbolHTMl(String nombreArchivo, String extension, String rutaAbrir, String nombreArbol )
         {
             try
             {
-                File.WriteAllText(@ruta + nombre + "." + extension, reporteArbol());
-                MessageBox.Show("Reporte de árbol de expresiones");
-
-                abrirDocumento(ruta, nombre, extension);
+                File.WriteAllText(@ruta + nombreArchivo+"."+extension, reporteArbol());
+                mensaje.setMensaje("Archivo de árbol creado");
+                abrirDocumento(ruta, nombreArchivo, extension);
             }
             catch (Exception e)
             {
-                MessageBox.Show("Hubo un problema al generar el html de tokens");
+                mensaje.setMensaje("Hubo un problema al generar el html de árboles");
             }
         }
 
         private string reporteArbol()
         {
+            //String rutaImagenes = "~\\bin\\Debug\\Grafos\\";
+            String rutaImagenes = @"Modelos\Imagenes\";        
+            //String imagen = Path.Combine(Application.StartupPath, rutaImagenes);
+            //String imagen = Path.Combine(Application.StartupPath, rutaImagenes);
 
-            
+            //String imagen = @"/Proyecto1LFP/Proyecto1LFP/bin/Debug/";
+
             String contenido = "<html>\n"
                + "<head>"
                + "<utf-8>"
@@ -182,22 +201,23 @@ namespace Proyecto1LFP.Modelos
                + ""
                + "</head>"
                + "<body align='center'>\n"
-               + "<table border = '1' align = 'center'>"
-               + "< img src = "+ '"' +ruta+"grafo"+ ".png " + '"'+ "> "  
-               
-            ;
-                
+               + "<table border = '1' align = 'center'>";
+
+               for (int i = 0; i < listaGraficasCod.Count; i++)
+            {
+                contenido += "< img src = " + '"' + rutaImagenes + "grafo" + i +".png"+'"' + "/> ";
+            }
+
+
             contenido += "</table>\n</body>\n</html>";
             return contenido;
         }
 
         private void generarImagen(string nombre, string ruta )
-        {
-
-            
+        {           
             try
             {
-                var command = string.Format("dot -Tpng {0} -o {1}", Path.Combine(ruta, nombre), Path.Combine(ruta, nombre.Replace(".dot", ".png")));
+                var command = string.Format("dot -Tpng "+this.ruta+nombre+" -o {1}", Path.Combine(ruta, nombre), Path.Combine(ruta, nombre.Replace(".dot", ".png")));
 
                 var procStarInfo = new System.Diagnostics.ProcessStartInfo("cmd", "/C " + command);
 
@@ -214,7 +234,7 @@ namespace Proyecto1LFP.Modelos
             }
             catch(Exception e)
             {
-                MessageBox.Show(e.Message);
+                mensaje.setMensaje("No se pudo generar la imagen del grafo");
             }
 
         }
@@ -224,14 +244,18 @@ namespace Proyecto1LFP.Modelos
             
             try
             {
-                File.WriteAllText(@ruta+nombre+"."+extension, reporteSimbolos());                
-                MessageBox.Show("Reporte de tokens generado correctamente");
+                if(listaTokens.Count > 0)
+                {
+                    File.WriteAllText(@ruta + nombre + "." + extension, reporteSimbolos());
+                    //MessageBox.Show("Reporte de tokens generado correctamente");
+                    mensaje.setMensaje("Archivo de tokens creado");
 
-                abrirDocumento(ruta, nombre, extension);
+                    abrirDocumento(ruta, nombre, extension);
+                }                
             }
             catch (Exception e)
             {
-                MessageBox.Show("Hubo un problema al generar el html de tokens");
+                mensaje.setMensaje("Hubo un problema al generar el html de tokens");
             }
         }
 
@@ -377,13 +401,28 @@ namespace Proyecto1LFP.Modelos
 
         private void abrirDocumento(String ruta, String nombre, String extension)
         {
+            String doc = "";
 
-            
-                String path = this.ruta + this.nombre + "." + extension;
 
-                String doc = Path.Combine(Application.StartupPath, path);
+            try
+            {
+                if (!extension.Equals(""))
+                {
+                    String path = ruta + nombre + "." + extension;
+                    doc = Path.Combine(Application.StartupPath, path);
+                }
+                else
+                {
+                    doc = Path.Combine(Application.StartupPath, ruta + nombre);
+                }
 
-                Process.Start(doc);                        
+
+                Process.Start(doc);
+            }
+            catch (Exception)
+            {
+                mensaje.setMensaje("No existe el documento en la carpeta");
+            }                                 
         }
     }   
 }

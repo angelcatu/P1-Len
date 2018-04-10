@@ -1,6 +1,6 @@
 ﻿namespace Proyecto1LFP
 {
-    partial class Form1
+    partial class Calculadora
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -42,7 +42,6 @@
             this.txtBoxLog = new System.Windows.Forms.TextBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnAnalizar = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.txtBoxAnalizador = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -54,7 +53,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(547, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(539, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -131,21 +130,22 @@
             this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
             this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.acercaDeToolStripMenuItem.Text = "Acerca de...";
+            this.acercaDeToolStripMenuItem.Click += new System.EventHandler(this.acercaDeToolStripMenuItem_Click_1);
             // 
             // txtBoxLog
             // 
             this.txtBoxLog.BackColor = System.Drawing.SystemColors.MenuText;
             this.txtBoxLog.ForeColor = System.Drawing.SystemColors.Info;
-            this.txtBoxLog.Location = new System.Drawing.Point(13, 287);
+            this.txtBoxLog.Location = new System.Drawing.Point(13, 256);
             this.txtBoxLog.Multiline = true;
             this.txtBoxLog.Name = "txtBoxLog";
             this.txtBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBoxLog.Size = new System.Drawing.Size(521, 60);
+            this.txtBoxLog.Size = new System.Drawing.Size(514, 93);
             this.txtBoxLog.TabIndex = 2;
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(511, 101);
+            this.btnClear.Location = new System.Drawing.Point(504, 101);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(23, 67);
             this.btnClear.TabIndex = 3;
@@ -155,7 +155,7 @@
             // 
             // btnAnalizar
             // 
-            this.btnAnalizar.Location = new System.Drawing.Point(511, 28);
+            this.btnAnalizar.Location = new System.Drawing.Point(504, 28);
             this.btnAnalizar.Name = "btnAnalizar";
             this.btnAnalizar.Size = new System.Drawing.Size(23, 67);
             this.btnAnalizar.TabIndex = 4;
@@ -163,39 +163,32 @@
             this.btnAnalizar.UseVisualStyleBackColor = true;
             this.btnAnalizar.Click += new System.EventHandler(this.btnAnalizar_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(511, 174);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(23, 67);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "C";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // txtBoxAnalizador
             // 
             this.txtBoxAnalizador.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxAnalizador.Location = new System.Drawing.Point(13, 28);
             this.txtBoxAnalizador.Name = "txtBoxAnalizador";
-            this.txtBoxAnalizador.Size = new System.Drawing.Size(492, 237);
+            this.txtBoxAnalizador.Size = new System.Drawing.Size(483, 222);
             this.txtBoxAnalizador.TabIndex = 6;
             this.txtBoxAnalizador.Text = "";
             // 
-            // Form1
+            // Calculadora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 359);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(539, 361);
             this.Controls.Add(this.txtBoxAnalizador);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAnalizar);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.txtBoxLog);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(555, 400);
+            this.MinimumSize = new System.Drawing.Size(555, 400);
+            this.Name = "Calculadora";
+            this.Text = "Calculadora";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -219,7 +212,6 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnAnalizar;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox txtBoxAnalizador;
     }
 }
