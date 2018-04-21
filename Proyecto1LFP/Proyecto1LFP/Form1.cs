@@ -27,6 +27,7 @@ namespace Proyecto1LFP
         private List<String> listaGraficas = Grafica.listaDeGraficas;
 
         private String mensajes = "";
+        private String pathDeArchivo = "";
                 
         public Calculadora()
         {
@@ -102,11 +103,11 @@ namespace Proyecto1LFP
                     analizador.analizarEntrada(cadena);
                 }
             }
-
-            cambiarColor();
-
+            
             if (listaErrores.Count == 0)
             {
+                cambiarColor();
+
                 generarReporteDeTokens();
                 log();
                 generarImagenArbol();
@@ -319,6 +320,7 @@ namespace Proyecto1LFP
         {
             txtBoxAnalizador.Text = "";
             String texto;
+            String saveText = txtBoxAnalizador.Text;
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Abrir archivo";
             ofd.Filter = "Documentos lf (*.lf)|*.lf";
@@ -329,11 +331,15 @@ namespace Proyecto1LFP
                 {
                     texto = System.IO.File.ReadAllText(ofd.FileName);
                     this.txtBoxAnalizador.Text = texto;
-                }
+
+                    pathDeArchivo = ofd.FileName;
+
+                }                                
             }
             catch (Exception e)
             {
-                MessageBox.Show("No se pudo abrir el archivo lf");
+                mensajes = "Error: no se pudo abrir el archivo";
+                txtBoxLog.Text += mensajes + Environment.NewLine;
             }
 
         }
@@ -355,7 +361,43 @@ namespace Proyecto1LFP
 
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            guardarArchivo();
+
+            if(pathDeArchivo.Length > 0)
+            {
+                sobreescribir(pathDeArchivo);
+
+            }
+            else
+            {
+                guardarArchivo();
+            }
+
+            
+        }
+
+        private void sobreescribir(string pathDeArchivo)
+        {
+            try
+            {
+                StreamWriter writer = new StreamWriter(pathDeArchivo);
+
+                writer.WriteLine(txtBoxAnalizador.Text);
+
+                writer.Close();
+
+                mensajes = "Archivo sobreescrito";
+                
+                //mensajes = string.Format(envio.enviarMensaje(), Environment.NewLine);
+                txtBoxLog.Text += mensajes + Environment.NewLine;
+                mensajes = "";
+            }
+            catch (Exception e)
+            {
+                mensajes = "Ocurrió un problema en la sobreescritura";
+                txtBoxLog.Text += mensaje + Environment.NewLine;
+
+                mensajes = "";
+            }
         }
 
         private void guardarArchivo()
@@ -363,18 +405,26 @@ namespace Proyecto1LFP
             
             SaveFileDialog sfd = new SaveFileDialog();
 
-            if (sfd.CheckFileExists)
-            {
-                File.WriteAllText(sfd.FileName, txtBoxAnalizador.Text);
-            }
-            else
+            try
             {
                 sfd.Filter = "Archivos lf (*.lf)|*.lf";
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     File.WriteAllText(sfd.FileName, txtBoxAnalizador.Text);
+
+                    pathDeArchivo = sfd.FileName;
+
+                    mensajes = "Archivo guardado";
+                    txtBoxLog.Text += mensajes + Environment.NewLine;
+                    mensajes = "";
                 }
-            }                        
+            }
+            catch(Exception e)
+            {
+                mensajes = "No se pudo guardar el archivo";
+                txtBoxLog.Text += mensajes + Environment.NewLine;
+                mensajes = "";
+            }                                     
         }
 
     
@@ -386,6 +436,33 @@ namespace Proyecto1LFP
                 "201403982";
 
             MessageBox.Show(acercaDe);
+        }
+
+        private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            guardarArchivo();
+        }
+
+        private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtBoxAnalizador.Text = "";
+            pathDeArchivo = "";
+
+            mensajes = "Nuevo archivo";
+            txtBoxLog.Text += mensajes + Environment.NewLine;
+            mensajes = "";
+        }
+
+        private void manualTécnicoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Archivo manualTecnico = new Archivo();
+            manualTecnico.abrirManualTecnico();
+        }
+
+        private void manualDeUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Archivo manualUsuario = new Archivo();
+            manualUsuario.abrirManualUsuario();
         }
     }
 }

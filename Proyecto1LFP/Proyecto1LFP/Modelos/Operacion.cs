@@ -29,7 +29,7 @@ namespace Proyecto1LFP.Modelos
 
         private int idRespuesta = 0;
         private String expAritmetica;
-        private float resultado ;
+        private double resultado ;
         private int precedencia;
         private String operacion;
         private String simbolo;
@@ -44,7 +44,7 @@ namespace Proyecto1LFP.Modelos
             return expAritmetica;
         }
 
-        public float getResultado()
+        public double getResultado()
         {
             return resultado;
         }
@@ -72,7 +72,7 @@ namespace Proyecto1LFP.Modelos
             listaOperadoresInfo.Add(new Operacion(3, "Agrupacion", ")"));
         }
 
-        public Operacion(int id, String expAritmetica, float resultado)
+        public Operacion(int id, String expAritmetica, double resultado)
         {
             this.idRespuesta = id;
             this.expAritmetica = expAritmetica;
@@ -103,7 +103,7 @@ namespace Proyecto1LFP.Modelos
                     cola = new Cola(idRespuesta);
                     listaCeldas = cola.getListaCeldas();
                     crearPostFijo(expresion.getSimbolo());
-                    float respuesta = mandarAResolver();
+                    double respuesta = mandarAResolver();
                     String expresionAritmetica = expresion.getExpresionOriginal();
                     if(respuesta != 0.0)
                     {
@@ -131,7 +131,7 @@ namespace Proyecto1LFP.Modelos
             archivo.crearReporteResultado();
         }
 
-        private void agregarAListaDeRespuestas(int id, string expresionAritmetica, float respuesta)
+        private void agregarAListaDeRespuestas(int id, string expresionAritmetica, double respuesta)
         {
             listaRespuestas.Add(new Operacion(id, expresionAritmetica, respuesta));
         }
@@ -244,9 +244,9 @@ namespace Proyecto1LFP.Modelos
             }            
         }
 
-        public float mandarAResolver()
+        public double mandarAResolver()
         {
-            float respuesta = 0;
+            double respuesta = 0;
 
           
 
@@ -258,9 +258,9 @@ namespace Proyecto1LFP.Modelos
             return respuesta;
         }
 
-        private float resolverExpresion(String cola, int indice)
+        private double resolverExpresion(String cola, int indice)
         {
-            float resultado = 0;
+            double resultado = 0;
             String tipo = evaluarTipo(cola);
 
             if (tipo.Equals("numero"))
@@ -275,8 +275,8 @@ namespace Proyecto1LFP.Modelos
                     case "+":
                         try
                             {
-                            float asoIzq = Int32.Parse(listaCeldas[indice-2].getCelda());
-                            float asoDer = Int32.Parse(listaCeldas[indice-1].getCelda());
+                            double asoIzq = Int32.Parse(listaCeldas[indice-2].getCelda());
+                            double asoDer = Int32.Parse(listaCeldas[indice-1].getCelda());
                             
                             resultado = resolver(asoIzq, "+", asoDer, indice);
                         }
@@ -292,8 +292,8 @@ namespace Proyecto1LFP.Modelos
 
                         try
                         {
-                            float asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());                            
-                            float asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
+                            double asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());                            
+                            double asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
                             
                             resultado = resolver(asoIzq, "-", asoDer, indice);
                         }
@@ -308,8 +308,8 @@ namespace Proyecto1LFP.Modelos
 
                         try
                         {
-                            float asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());
-                            float asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
+                            double asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());
+                            double asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
 
                             resultado = resolver(asoIzq, "*", asoDer, indice);
                         }
@@ -324,8 +324,12 @@ namespace Proyecto1LFP.Modelos
 
                         try
                         {
-                            float asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());
-                            float asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
+                            double asoIzq = Convert.ToDouble(listaCeldas[indice - 2].getCelda());
+                            double asoDer = Convert.ToDouble(listaCeldas[indice - 1].getCelda());
+
+
+                            //double asoIzq = Int32.Parse(listaCeldas[indice - 2].getCelda());
+                            //double asoDer = Int32.Parse(listaCeldas[indice - 1].getCelda());
 
                             resultado = resolver(asoIzq, "/", asoDer, indice);
                         }
@@ -340,10 +344,10 @@ namespace Proyecto1LFP.Modelos
 
             return resultado;
         }        
-        private float resolver(float asoIzq, string operador, float asoDer, int indice)
+        private double resolver(double asoIzq, string operador, double asoDer, int indice)
         {
-            float resultado = 0;
-            float operacion = 0f;
+            double resultado = 0;
+            double operacion = 0f;
 
             switch (operador)
             {
@@ -376,7 +380,7 @@ namespace Proyecto1LFP.Modelos
 
             if (listaCeldas.Count == 1)
             {
-                resultado = Int32.Parse(listaCeldas[0].getCelda());
+                resultado = Convert.ToDouble(listaCeldas[0].getCelda());
                 indiceResolver = listaCeldas.Count;
                 mensaje.setMensaje("Expresión aritmética resuelta");
             }

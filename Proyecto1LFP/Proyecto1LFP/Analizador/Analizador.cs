@@ -478,6 +478,8 @@ namespace Proyecto1LFP.Modelos
 
                             estado = 3;
 
+
+
                         } else if (caracter[indice] == 41 || caracter[indice] == 125)
                         {
                             estado = 1;
@@ -860,7 +862,7 @@ namespace Proyecto1LFP.Modelos
 
                             // _
                         } else if (cadena[indice] == 95)
-                        {
+                        { 
                             lexema += caracter;
 
                             // ;

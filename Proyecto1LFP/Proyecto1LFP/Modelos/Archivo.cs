@@ -136,7 +136,7 @@ namespace Proyecto1LFP.Modelos
             //String ruta = Path.Combine(Application.StartupPath, "Imagenes\\");
 
             //String ruta = "C:\\Users\\ang_e\\Documents\\Imagenes\\";
-            String ruta = "Grafos\\";
+            String ruta = "..\\..\\Grafos\\";
             //String imagen = "..\\..\\Modelos\\Imagenes\\";
             String imagen = Path.Combine(Application.StartupPath, ruta);
 
@@ -146,13 +146,13 @@ namespace Proyecto1LFP.Modelos
             {
                 for (int i = 0; i < listaGraficasCod.Count; i++)
                 {
-
-                    //generarImagen("grafo" + i + ".dot", ruta);
-                    //generarImagen("grafo"+i+".dot", "~/Modelos/Imagenes/");
+                    
                     generarImagen("grafo"+i+".dot", imagen);
-                    abrirDocumento(imagen, "grafo"+i+".png", "");
-                    //generarReporteDeArbolHTMl("ReporteArbol", "html", this.ruta, "grafo" + i + ".png");
+                    //abrirDocumento(imagen, "grafo"+i+".png", "");
+                    generarReporteDeArbolHTMl("ReporteArbol", "html", imagen, "grafo" + i + ".png");
                 }
+
+                abrirDocumento(imagen, "ReporteArbol", "html");
 
                 mensaje.setMensaje("Grafo creado");
             }                                  
@@ -162,9 +162,8 @@ namespace Proyecto1LFP.Modelos
         {
             try
             {
-                File.WriteAllText(@ruta + nombreArchivo+"."+extension, reporteArbol());
-                mensaje.setMensaje("Archivo de árbol creado");
-                abrirDocumento(ruta, nombreArchivo, extension);
+                File.WriteAllText(rutaAbrir + nombreArchivo+"."+extension, reporteArbol(rutaAbrir));
+                mensaje.setMensaje("Archivo de árbol creado");                
             }
             catch (Exception e)
             {
@@ -172,48 +171,60 @@ namespace Proyecto1LFP.Modelos
             }
         }
 
-        private string reporteArbol()
+        private string reporteArbol(String rutaImagenes)
         {
-            //String rutaImagenes = "~\\bin\\Debug\\Grafos\\";
-            String rutaImagenes = @"Modelos\Imagenes\";        
-            //String imagen = Path.Combine(Application.StartupPath, rutaImagenes);
-            //String imagen = Path.Combine(Application.StartupPath, rutaImagenes);
-
-            //String imagen = @"/Proyecto1LFP/Proyecto1LFP/bin/Debug/";
 
             String contenido = "<html>\n"
-               + "<head>"
-               + "<utf-8>"
-               + "\n<title>REPORTE DE ARBOL</title>\n"
-               + "<style>"
-               + "body{"
-               + "background-color: #ead48a;"
-               + "}"
-               + ""
-               + "table: hover{"
-               + "width: 50%;"
-               + "}"
-               + ""
-               + "th{"
-               + "height: 25px;"
-               + "}"
-               + "</style>"
-               + ""
-               + "</head>"
-               + "<body align='center'>\n"
-               + "<table border = '1' align = 'center'>";
+                 + "<head>"
+                 + "<utf-8>"
+                 + "\n<title>REPORTE DE GRAFICAS</title>\n"
+                 + "<style>"
+                 + "body{"
+                 + "background-color: #ead48a;"
+                 + "}"
+                 + ""
+                 + "table: hover{"
+                 + "width: 50%;"
+                 + "}"
+                 + ""
+                 + "th{"
+                 + "height: 25px;"
+                 + "}"
+                 + "</style>"
+                 + ""
+                 + "</head>"
+                 + "<body align='center'>\n"
+                 + "<table border = '1' align = 'center'>"
+                 + "<caption> <h3> Graficas </h3> </caption>"
+                 + "<tr>"
+                 + "<th> <strong> Nombre </strong>  </th>\n"
+                 + "<th> <strong> Imagen </strong>  </th>\n"
+                 + "</tr>";         
 
-               for (int i = 0; i < listaGraficasCod.Count; i++)
+            for (int i = 0; i < listaGraficasCod.Count; i++)
             {
-                contenido += "< img src = " + '"' + rutaImagenes + "grafo" + i +".png"+'"' + "/> ";
+              
+                contenido += "<tr>\n" 
+                                    
+                                 + "<td align = 'center'>" + "grafo" +i+ "</td>"  
+                                    
+                                 + "<td align = 'center'> \n"
+                                          + "<img src = " + '"' + "grafo" + i + ".png" + '"' + "/>\n"
+                                 + "</td>\n"
+
+                          +"</tr>\n";
             }
 
 
             contenido += "</table>\n</body>\n</html>";
-            return contenido;
-        }
 
-        private void generarImagen(string nombre, string ruta )
+
+
+            return contenido;
+
+
+        }
+    private void generarImagen(string nombre, string ruta )
         {           
             try
             {
@@ -423,6 +434,27 @@ namespace Proyecto1LFP.Modelos
             {
                 mensaje.setMensaje("No existe el documento en la carpeta");
             }                                 
+        }
+
+        internal void abrirManualUsuario()
+        {
+            String ruta = "..\\..\\Manuales\\";
+            String manual = Path.Combine(Application.StartupPath, ruta);
+
+            abrirDocumento(manual, "ManualUsuario", "pdf");
+
+            mensaje.setMensaje("Abrir manual de usuario");
+        }
+
+        internal void abrirManualTecnico()
+        {
+            String ruta = "..\\..\\Manuales\\";
+
+            String manual = Path.Combine(Application.StartupPath, ruta);
+
+            abrirDocumento(manual, "ManualTecnico", "pdf");
+
+            mensaje.setMensaje("Abrir manual técnico");
         }
     }   
 }

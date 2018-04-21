@@ -74,7 +74,6 @@
     <Compile Include="Modelos\Cola.cs" />
     <Compile Include="Modelos\Expresion.cs" />
     <Compile Include="Modelos\Grafica.cs" />
-    <Compile Include="Modelos\Graphviz.cs" />
     <Compile Include="Modelos\Operacion.cs" />
     <Compile Include="Modelos\Pila.cs" />
     <Compile Include="Modelos\Token.cs" />
@@ -105,9 +104,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Grafos\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
@@ -119,6 +116,10 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Grafos\grafo0.png" />
+    <Content Include="Grafos\grafo1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

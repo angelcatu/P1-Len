@@ -30,6 +30,7 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.inicioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.guardarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +44,7 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.btnAnalizar = new System.Windows.Forms.Button();
             this.txtBoxAnalizador = new System.Windows.Forms.RichTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +62,7 @@
             // inicioToolStripMenuItem
             // 
             this.inicioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nuevoToolStripMenuItem,
             this.abrirToolStripMenuItem,
             this.guardarToolStripMenuItem,
             this.guardarComoToolStripMenuItem,
@@ -68,6 +71,13 @@
             this.inicioToolStripMenuItem.Name = "inicioToolStripMenuItem";
             this.inicioToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.inicioToolStripMenuItem.Text = "Inicio";
+            // 
+            // nuevoToolStripMenuItem
+            // 
+            this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.nuevoToolStripMenuItem.Text = "Nuevo";
+            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
             // abrirToolStripMenuItem
             // 
@@ -88,6 +98,7 @@
             this.guardarComoToolStripMenuItem.Name = "guardarComoToolStripMenuItem";
             this.guardarComoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.guardarComoToolStripMenuItem.Text = "Guardar como...";
+            this.guardarComoToolStripMenuItem.Click += new System.EventHandler(this.guardarComoToolStripMenuItem_Click);
             // 
             // analizarToolStripMenuItem
             // 
@@ -118,12 +129,14 @@
             this.manualTécnicoToolStripMenuItem.Name = "manualTécnicoToolStripMenuItem";
             this.manualTécnicoToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.manualTécnicoToolStripMenuItem.Text = "Manual técnico";
+            this.manualTécnicoToolStripMenuItem.Click += new System.EventHandler(this.manualTécnicoToolStripMenuItem_Click);
             // 
             // manualDeUsuarioToolStripMenuItem
             // 
             this.manualDeUsuarioToolStripMenuItem.Name = "manualDeUsuarioToolStripMenuItem";
             this.manualDeUsuarioToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.manualDeUsuarioToolStripMenuItem.Text = "Manual de usuario";
+            this.manualDeUsuarioToolStripMenuItem.Click += new System.EventHandler(this.manualDeUsuarioToolStripMenuItem_Click);
             // 
             // acercaDeToolStripMenuItem
             // 
@@ -136,11 +149,11 @@
             // 
             this.txtBoxLog.BackColor = System.Drawing.SystemColors.MenuText;
             this.txtBoxLog.ForeColor = System.Drawing.SystemColors.Info;
-            this.txtBoxLog.Location = new System.Drawing.Point(13, 256);
+            this.txtBoxLog.Location = new System.Drawing.Point(13, 269);
             this.txtBoxLog.Multiline = true;
             this.txtBoxLog.Name = "txtBoxLog";
             this.txtBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBoxLog.Size = new System.Drawing.Size(514, 93);
+            this.txtBoxLog.Size = new System.Drawing.Size(514, 80);
             this.txtBoxLog.TabIndex = 2;
             // 
             // btnClear
@@ -172,12 +185,22 @@
             this.txtBoxAnalizador.TabIndex = 6;
             this.txtBoxAnalizador.Text = "";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 253);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(25, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Log";
+            // 
             // Calculadora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(539, 361);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBoxAnalizador);
             this.Controls.Add(this.btnAnalizar);
             this.Controls.Add(this.btnClear);
@@ -213,6 +236,8 @@
         private System.Windows.Forms.Button btnAnalizar;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.RichTextBox txtBoxAnalizador;
+        private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
     }
 }
 
